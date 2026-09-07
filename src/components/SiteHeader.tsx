@@ -23,7 +23,7 @@ export function SiteHeader() {
       <div className="container-page flex h-16 items-center justify-between gap-4 md:h-20">
         <Link to="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
           <img
-            src={logo.url}
+            src={logo}
             alt="América Frios"
             width={44}
             height={44}

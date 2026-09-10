@@ -98,11 +98,25 @@ export function SiteFooter() {
             </li>
           </ul>
           <div className="mt-5 space-y-2 text-sm text-cream/70">
-            <a href={`tel:+${"5563984021014"}`} className="flex items-center gap-2 hover:text-cream">
-              <Phone className="h-4 w-4" /> {CONTACT.phoneDisplay}
-            </a>
+            {CONTACT.phoneDisplays.map((p, i) => (
+              <a
+                key={p}
+                href={`tel:${CONTACT.phonesTel[i]}`}
+                className="flex items-center gap-2 hover:text-cream"
+              >
+                <Phone className="h-4 w-4" /> {p}
+              </a>
+            ))}
             <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-2 break-all hover:text-cream">
               <Mail className="h-4 w-4 shrink-0" /> {CONTACT.email}
+            </a>
+            <a
+              href={CONTACT.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-cream"
+            >
+              <Instagram className="h-4 w-4" /> {CONTACT.instagramHandle}
             </a>
           </div>
         </div>

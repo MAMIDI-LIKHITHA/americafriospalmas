@@ -212,9 +212,7 @@ function Index() {
             Atendemos famílias, revendedores e estabelecimentos em Palmas e região. Delivery
             rápido e seguro.
           </p>
-          <WhatsAppButton size="lg" className="mt-7">
-            Fale Conosco no WhatsApp
-          </WhatsAppButton>
+          <WhatsAppButton size="lg" className="mt-7" />
         </div>
       </section>
     </div>

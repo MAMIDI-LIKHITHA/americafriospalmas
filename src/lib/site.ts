@@ -1,11 +1,23 @@
-export const WHATSAPP_NUMBER = "5563984021014";
+export const WHATSAPP_NUMBERS = [
+  { display: "(63) 98402-1014", tel: "+5563984021014", intl: "5563984021014" },
+  { display: "(63) 99220-7950", tel: "+5563992207950", intl: "5563992207950" },
+] as const;
 
-export const waLink = (
-  text = "Olá! Vim pelo site e gostaria de saber mais sobre os produtos.",
-) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+// Mantido para compatibilidade com código legado (order.ts).
+export const WHATSAPP_NUMBER = WHATSAPP_NUMBERS[0].intl;
+
+export const DEFAULT_WA_MESSAGE =
+  "Olá! Vim pelo site e gostaria de saber mais sobre os produtos.";
+
+export const waLinkFor = (intl: string, text: string = DEFAULT_WA_MESSAGE) =>
+  `https://wa.me/${intl}?text=${encodeURIComponent(text)}`;
+
+export const waLink = (text: string = DEFAULT_WA_MESSAGE) => waLinkFor(WHATSAPP_NUMBER, text);
 
 export const CONTACT = {
-  phoneDisplay: "(63) 98402-1014",
+  phoneDisplays: WHATSAPP_NUMBERS.map((n) => n.display),
+  phonesTel: WHATSAPP_NUMBERS.map((n) => n.tel),
+  phoneDisplay: WHATSAPP_NUMBERS[0].display,
   phoneIntl: "+55 63 98402-1014",
   email: "empoemporiofinanceiro2018@yahoo.com",
   instagram: "https://www.instagram.com/americafriospalmas/",

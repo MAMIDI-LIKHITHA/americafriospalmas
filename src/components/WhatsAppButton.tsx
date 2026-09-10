@@ -1,4 +1,4 @@
-import { waLink } from "@/lib/site";
+import { WHATSAPP_NUMBERS, waLinkFor, DEFAULT_WA_MESSAGE } from "@/lib/site";
 
 function WaIcon({ className = "h-4 w-4" }: { className?: string }) {
   return (
@@ -9,15 +9,15 @@ function WaIcon({ className = "h-4 w-4" }: { className?: string }) {
 }
 
 export function WhatsAppButton({
-  message,
-  children = "Peça pelo WhatsApp",
+  message = DEFAULT_WA_MESSAGE,
   className = "",
   size = "md",
+  block = false,
 }: {
   message?: string;
-  children?: React.ReactNode;
   className?: string;
   size?: "sm" | "md" | "lg";
+  block?: boolean;
 }) {
   const sizes = {
     sm: "text-sm px-4 py-2",
@@ -26,15 +26,20 @@ export function WhatsAppButton({
   } as const;
 
   return (
-    <a
-      href={waLink(message)}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`btn-base btn-whatsapp ${sizes[size]} ${className}`}
-    >
-      <WaIcon className={size === "lg" ? "h-5 w-5" : "h-4 w-4"} />
-      {children}
-    </a>
+    <div className={`flex flex-wrap gap-2 ${block ? "w-full" : ""} ${className}`}>
+      {WHATSAPP_NUMBERS.map((n) => (
+        <a
+          key={n.intl}
+          href={waLinkFor(n.intl, message)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`btn-base btn-whatsapp ${sizes[size]} ${block ? "flex-1 justify-center" : ""}`}
+        >
+          <WaIcon className={size === "lg" ? "h-5 w-5" : "h-4 w-4"} />
+          WhatsApp {n.display}
+        </a>
+      ))}
+    </div>
   );
 }
 

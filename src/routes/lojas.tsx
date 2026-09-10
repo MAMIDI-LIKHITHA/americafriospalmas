@@ -50,7 +50,7 @@ function LojasPage() {
         <p className="max-w-xl text-sm text-muted-foreground">
           Mande uma mensagem: confirmamos estoque e preço na hora.
         </p>
-        <WhatsAppButton size="lg" message="Olá! Vim pelo site e queria confirmar estoque em uma das lojas." />
+        <WhatsAppButton size="lg" block message="Olá! Vim pelo site e queria confirmar estoque em uma das lojas." />
       </section>
     </div>
   );

@@ -50,9 +50,9 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <WhatsAppButton size="sm" className="hidden sm:inline-flex">
-            Pedir no WhatsApp
-          </WhatsAppButton>
+          <div className="hidden sm:block">
+            <WhatsAppButton size="sm" />
+          </div>
           <CartButton />
 
           <button
@@ -81,9 +81,9 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
-            <WhatsAppButton size="sm" className="mt-3 w-full sm:hidden">
-              Pedir no WhatsApp
-            </WhatsAppButton>
+            <div className="sm:hidden">
+              <WhatsAppButton size="sm" block className="mt-3" />
+            </div>
           </nav>
         </div>
       )}

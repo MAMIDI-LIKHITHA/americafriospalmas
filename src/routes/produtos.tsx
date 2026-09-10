@@ -78,9 +78,7 @@ function ProdutosPage() {
           size="lg"
           className="mt-6"
           message="Olá! Vim pelo site e gostaria de um orçamento de atacado."
-        >
-          Fale Conosco no WhatsApp
-        </WhatsAppButton>
+        />
       </section>
     </div>
   );

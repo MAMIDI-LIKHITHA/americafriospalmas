@@ -46,9 +46,7 @@ export function StoreCard({ store }: { store: Store }) {
           <WhatsAppButton
             size="sm"
             message={`Olá! Vim pelo site e gostaria de falar com a ${store.name}.`}
-          >
-            Falar no WhatsApp
-          </WhatsAppButton>
+          />
         </div>
       </div>
     </article>

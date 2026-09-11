@@ -207,7 +207,7 @@ function TrabalheConoscoPage() {
 
           <div className="space-y-5">
             {OPENINGS.map((o) => {
-              const number = WHATSAPP_NUMBERS[o.whatsappIndex];
+              const number = WHATSAPP_NUMBERS[o.whatsappIndex] ?? WHATSAPP_NUMBERS[0];
               return (
                 <article
                   key={o.id}

@@ -5,7 +5,7 @@ import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { CONTACT, STORES, mapDirections } from "@/lib/site";
 
 const description =
-  "Fale com a América Frios Palmas: WhatsApp (63) 98402-1014, e-mail e endereços das 3 lojas de frios, embutidos, suínos e frangos em Palmas - TO.";
+  "Fale com a América Frios Palmas: WhatsApp (63) 98402-1014 ou (63) 99220-7950, e-mail e endereços das lojas de frios, embutidos, suínos e frangos em Palmas - TO.";
 
 export const Route = createFileRoute("/contato")({
   head: () => ({
@@ -38,17 +38,30 @@ function ContatoPage() {
       <div className="mt-10 grid gap-6 lg:grid-cols-2">
         <div className="card-surface space-y-5 p-6">
           <h2 className="font-display text-xl">Atendimento</h2>
-          <a
-            href={`tel:+5563984021014`}
-            className="flex items-center gap-3 text-sm font-semibold hover:text-primary"
-          >
-            <Phone className="h-4 w-4 text-primary" /> {CONTACT.phoneDisplay}
-          </a>
+          <div className="space-y-2">
+            {CONTACT.phoneDisplays.map((p, i) => (
+              <a
+                key={p}
+                href={`tel:${CONTACT.phonesTel[i]}`}
+                className="flex items-center gap-3 text-sm font-semibold hover:text-primary"
+              >
+                <Phone className="h-4 w-4 text-primary" /> {p}
+              </a>
+            ))}
+          </div>
           <a
             href={`mailto:${CONTACT.email}`}
             className="flex items-center gap-3 text-sm font-semibold break-all hover:text-primary"
           >
             <Mail className="h-4 w-4 shrink-0 text-primary" /> {CONTACT.email}
+          </a>
+          <a
+            href={CONTACT.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 text-sm font-semibold hover:text-primary"
+          >
+            <Instagram className="h-4 w-4 text-primary" /> {CONTACT.instagramHandle}
           </a>
           <p className="flex items-center gap-3 text-sm text-muted-foreground">
             <Clock className="h-4 w-4 text-primary" /> {CONTACT.hours}
@@ -71,7 +84,7 @@ function ContatoPage() {
               <Facebook className="h-4 w-4" /> Facebook
             </a>
           </div>
-          <WhatsAppButton size="lg" className="w-full" />
+          <WhatsAppButton size="lg" block />
         </div>
 
         <div className="card-surface space-y-5 p-6">

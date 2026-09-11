@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 import type { DetailedLine, OrderMode } from "./cart";
-import { STORES, WHATSAPP_NUMBER } from "./site";
+import { STORES, WHATSAPP_NUMBERS } from "./site";
 
 export const brl = (value: number) =>
   value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -81,7 +81,7 @@ export function buildOrder(lines: DetailedLine[], mode: OrderMode, customer: Che
   };
 }
 
-export function orderWhatsAppLink(order: Order) {
+export function orderWhatsAppLink(order: Order, intl: string = WHATSAPP_NUMBERS[0].intl) {
   const store = STORES.find((s) => s.slug === order.customer.storeSlug);
   const payment = PAYMENT_METHODS.find((p) => p.id === order.customer.payment)?.label ?? "-";
 
@@ -105,5 +105,5 @@ export function orderWhatsAppLink(order: Order) {
     ...(order.customer.note ? [`Observações: ${order.customer.note}`] : []),
   ];
 
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`;
+  return `https://wa.me/${intl}?text=${encodeURIComponent(lines.join("\n"))}`;
 }

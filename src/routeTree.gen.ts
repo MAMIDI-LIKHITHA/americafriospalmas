@@ -15,6 +15,7 @@ import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as LojasRouteImport } from './routes/lojas'
 import { Route as ProdutosRouteImport } from './routes/produtos'
 import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as TrabalheConoscoRouteImport } from './routes/trabalhe-conosco'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminChangePasswordRouteImport } from './routes/admin/change-password'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
@@ -50,6 +51,11 @@ const ProdutosRoute = ProdutosRouteImport.update({
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
   path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrabalheConoscoRoute = TrabalheConoscoRouteImport.update({
+  id: '/trabalhe-conosco',
+  path: '/trabalhe-conosco',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -90,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/lojas': typeof LojasRoute
   '/produtos': typeof ProdutosRoute
   '/sobre': typeof SobreRoute
+  '/trabalhe-conosco': typeof TrabalheConoscoRoute
   '/admin/change-password': typeof AdminChangePasswordRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/pedidos': typeof AdminPedidosRoute
@@ -104,6 +111,7 @@ export interface FileRoutesByTo {
   '/lojas': typeof LojasRoute
   '/produtos': typeof ProdutosRoute
   '/sobre': typeof SobreRoute
+  '/trabalhe-conosco': typeof TrabalheConoscoRoute
   '/admin/change-password': typeof AdminChangePasswordRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/pedidos': typeof AdminPedidosRoute
@@ -119,6 +127,7 @@ export interface FileRoutesById {
   '/lojas': typeof LojasRoute
   '/produtos': typeof ProdutosRoute
   '/sobre': typeof SobreRoute
+  '/trabalhe-conosco': typeof TrabalheConoscoRoute
   '/admin/change-password': typeof AdminChangePasswordRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/pedidos': typeof AdminPedidosRoute
@@ -135,6 +144,7 @@ export interface FileRouteTypes {
     | '/lojas'
     | '/produtos'
     | '/sobre'
+    | '/trabalhe-conosco'
     | '/admin/change-password'
     | '/admin/login'
     | '/admin/pedidos'
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
     | '/lojas'
     | '/produtos'
     | '/sobre'
+    | '/trabalhe-conosco'
     | '/admin/change-password'
     | '/admin/login'
     | '/admin/pedidos'
@@ -163,6 +174,7 @@ export interface FileRouteTypes {
     | '/lojas'
     | '/produtos'
     | '/sobre'
+    | '/trabalhe-conosco'
     | '/admin/change-password'
     | '/admin/login'
     | '/admin/pedidos'
@@ -178,6 +190,7 @@ export interface RootRouteChildren {
   LojasRoute: typeof LojasRoute
   ProdutosRoute: typeof ProdutosRoute
   SobreRoute: typeof SobreRoute
+  TrabalheConoscoRoute: typeof TrabalheConoscoRoute
   AdminChangePasswordRoute: typeof AdminChangePasswordRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminPedidosRoute: typeof AdminPedidosRoute
@@ -228,6 +241,13 @@ declare module '@tanstack/react-router' {
       path: '/sobre'
       fullPath: '/sobre'
       preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trabalhe-conosco': {
+      id: '/trabalhe-conosco'
+      path: '/trabalhe-conosco'
+      fullPath: '/trabalhe-conosco'
+      preLoaderRoute: typeof TrabalheConoscoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -282,6 +302,7 @@ const rootRouteChildren: RootRouteChildren = {
   LojasRoute: LojasRoute,
   ProdutosRoute: ProdutosRoute,
   SobreRoute: SobreRoute,
+  TrabalheConoscoRoute: TrabalheConoscoRoute,
   AdminChangePasswordRoute: AdminChangePasswordRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminPedidosRoute: AdminPedidosRoute,

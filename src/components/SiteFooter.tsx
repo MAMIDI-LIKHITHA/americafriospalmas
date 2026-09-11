@@ -87,6 +87,11 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link to="/trabalhe-conosco" className="hover:text-cream">
+                Trabalhe Conosco
+              </Link>
+            </li>
+            <li>
               <a href={CONTACT.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-cream">
                 Instagram
               </a>

@@ -13,6 +13,7 @@ const NAV = [
   { to: "/lojas", label: "Nossas Lojas" },
   { to: "/sobre", label: "Sobre" },
   { to: "/contato", label: "Contato" },
+  { to: "/trabalhe-conosco", label: "Trabalhe Conosco" },
 ] as const;
 
 export function SiteHeader() {

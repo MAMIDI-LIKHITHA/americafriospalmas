@@ -190,6 +190,87 @@ function TrabalheConoscoPage() {
         </div>
       </section>
 
+      {/* Vagas abertas */}
+      <section className="container-page py-14">
+        <div className="mx-auto max-w-2xl">
+          <div className="mb-6 flex items-center gap-3">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+              <Briefcase className="h-5 w-5 text-primary" />
+            </span>
+            <div>
+              <h2 className="font-display text-xl">Vagas abertas</h2>
+              <p className="text-sm text-muted-foreground">
+                Confira as oportunidades disponíveis e candidate-se pelo WhatsApp.
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-5">
+            {OPENINGS.map((o) => {
+              const number = WHATSAPP_NUMBERS[o.whatsappIndex];
+              return (
+                <article
+                  key={o.id}
+                  className="card-surface overflow-hidden p-6 md:p-8"
+                >
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
+                      <span className="relative flex h-2 w-2">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/70" />
+                        <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+                      </span>
+                      Vaga aberta
+                    </span>
+                    <h3 className="font-display text-lg text-foreground">{o.area}</h3>
+                  </div>
+
+                  <div className="mt-4 flex items-start gap-2 text-sm text-foreground/80">
+                    <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    <span>
+                      <span className="font-semibold text-foreground">{o.store}</span> — {o.city}
+                    </span>
+                  </div>
+
+                  <div className="mt-5">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                      Requisitos
+                    </p>
+                    <ul className="mt-2 grid gap-2 sm:grid-cols-2">
+                      {o.requirements.map((r) => (
+                        <li key={r} className="flex items-start gap-2 text-sm text-foreground/85">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary/70" />
+                          {r}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {o.nearbyNote && (
+                    <p className="mt-4 rounded-lg border border-primary/30 bg-primary/5 p-3 text-sm font-semibold text-foreground">
+                      📍 {o.nearbyNote}
+                    </p>
+                  )}
+
+                  <div className="mt-6 flex flex-wrap items-center gap-3">
+                    <a
+                      href={waLinkFor(number.intl, openingMessage(o))}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-base btn-whatsapp text-base"
+                    >
+                      <Send className="h-4 w-4" /> Candidatar-se — {number.display}
+                    </a>
+                    <span className="text-xs text-muted-foreground">
+                      ou preencha o formulário abaixo.
+                    </span>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Formulário */}
       <section className="container-page py-14">
         <div className="mx-auto max-w-2xl">

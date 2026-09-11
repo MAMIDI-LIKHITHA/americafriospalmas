@@ -17,7 +17,7 @@ import {
   type CheckoutData,
   type Order,
 } from "@/lib/order";
-import { STORES } from "@/lib/site";
+import { STORES, WHATSAPP_NUMBERS } from "@/lib/site";
 
 const description =
   "Finalize seu pedido de frios, embutidos, suínos, frangos e espetinhos na América Frios Palmas: entrega ou retirada em loja, Pix, dinheiro ou cartão.";
@@ -404,17 +404,22 @@ function Confirmation({ order }: { order: Order }) {
           )}
         </dl>
 
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <a
-            href={orderWhatsAppLink(order)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-base btn-whatsapp flex-1"
-          >
-            <WaIcon />
-            Enviar resumo no WhatsApp
-          </a>
-          <Link to="/produtos" className="btn-base btn-outline-brand flex-1">
+        <div className="mt-6 space-y-3">
+          <div className="flex flex-col gap-3 sm:flex-row">
+            {WHATSAPP_NUMBERS.map((n) => (
+              <a
+                key={n.intl}
+                href={orderWhatsAppLink(order, n.intl)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-base btn-whatsapp flex-1 justify-center"
+              >
+                <WaIcon />
+                Enviar resumo · {n.display}
+              </a>
+            ))}
+          </div>
+          <Link to="/produtos" className="btn-base btn-outline-brand w-full sm:w-auto">
             Fazer novo pedido
           </Link>
         </div>

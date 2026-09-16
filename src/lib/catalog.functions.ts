@@ -36,7 +36,7 @@ export const getCatalog = createServerFn({ method: "GET" }).handler(
       .from("products")
       .select("slug, name, category, unit, price, wholesale_price, wholesale_min, image_url")
       .eq("available", true)
-      .order("name", { ascending: true });
+      .order("created_at", { ascending: true });
 
     if (error) throw new Error("Não foi possível carregar o catálogo.");
 

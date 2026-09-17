@@ -14,6 +14,89 @@ export type Database = {
   }
   public: {
     Tables: {
+      dinein_categories: {
+        Row: {
+          active: boolean
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          slug: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          slug: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      dinein_items: {
+        Row: {
+          available: boolean
+          category_id: string
+          created_at: string
+          description: string | null
+          featured: boolean
+          id: string
+          image_url: string | null
+          name: string
+          price: number
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          available?: boolean
+          category_id: string
+          created_at?: string
+          description?: string | null
+          featured?: boolean
+          id?: string
+          image_url?: string | null
+          name: string
+          price?: number
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          available?: boolean
+          category_id?: string
+          created_at?: string
+          description?: string | null
+          featured?: boolean
+          id?: string
+          image_url?: string | null
+          name?: string
+          price?: number
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dinein_items_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "dinein_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       order_items: {
         Row: {
           created_at: string

@@ -13,10 +13,12 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CarrinhoRouteImport } from './routes/carrinho'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as LojasRouteImport } from './routes/lojas'
+import { Route as MenuRouteImport } from './routes/menu'
 import { Route as ProdutosRouteImport } from './routes/produtos'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as TrabalheConoscoRouteImport } from './routes/trabalhe-conosco'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminCardapioRouteImport } from './routes/admin/cardapio'
 import { Route as AdminChangePasswordRouteImport } from './routes/admin/change-password'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminPedidosRouteImport } from './routes/admin/pedidos'
@@ -43,6 +45,11 @@ const LojasRoute = LojasRouteImport.update({
   path: '/lojas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MenuRoute = MenuRouteImport.update({
+  id: '/menu',
+  path: '/menu',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProdutosRoute = ProdutosRouteImport.update({
   id: '/produtos',
   path: '/produtos',
@@ -61,6 +68,11 @@ const TrabalheConoscoRoute = TrabalheConoscoRouteImport.update({
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminCardapioRoute = AdminCardapioRouteImport.update({
+  id: '/admin/cardapio',
+  path: '/admin/cardapio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminChangePasswordRoute = AdminChangePasswordRouteImport.update({
@@ -94,9 +106,11 @@ export interface FileRoutesByFullPath {
   '/carrinho': typeof CarrinhoRoute
   '/contato': typeof ContatoRoute
   '/lojas': typeof LojasRoute
+  '/menu': typeof MenuRoute
   '/produtos': typeof ProdutosRoute
   '/sobre': typeof SobreRoute
   '/trabalhe-conosco': typeof TrabalheConoscoRoute
+  '/admin/cardapio': typeof AdminCardapioRoute
   '/admin/change-password': typeof AdminChangePasswordRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/pedidos': typeof AdminPedidosRoute
@@ -109,9 +123,11 @@ export interface FileRoutesByTo {
   '/carrinho': typeof CarrinhoRoute
   '/contato': typeof ContatoRoute
   '/lojas': typeof LojasRoute
+  '/menu': typeof MenuRoute
   '/produtos': typeof ProdutosRoute
   '/sobre': typeof SobreRoute
   '/trabalhe-conosco': typeof TrabalheConoscoRoute
+  '/admin/cardapio': typeof AdminCardapioRoute
   '/admin/change-password': typeof AdminChangePasswordRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/pedidos': typeof AdminPedidosRoute
@@ -125,9 +141,11 @@ export interface FileRoutesById {
   '/carrinho': typeof CarrinhoRoute
   '/contato': typeof ContatoRoute
   '/lojas': typeof LojasRoute
+  '/menu': typeof MenuRoute
   '/produtos': typeof ProdutosRoute
   '/sobre': typeof SobreRoute
   '/trabalhe-conosco': typeof TrabalheConoscoRoute
+  '/admin/cardapio': typeof AdminCardapioRoute
   '/admin/change-password': typeof AdminChangePasswordRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/pedidos': typeof AdminPedidosRoute
@@ -142,9 +160,11 @@ export interface FileRouteTypes {
     | '/carrinho'
     | '/contato'
     | '/lojas'
+    | '/menu'
     | '/produtos'
     | '/sobre'
     | '/trabalhe-conosco'
+    | '/admin/cardapio'
     | '/admin/change-password'
     | '/admin/login'
     | '/admin/pedidos'
@@ -157,9 +177,11 @@ export interface FileRouteTypes {
     | '/carrinho'
     | '/contato'
     | '/lojas'
+    | '/menu'
     | '/produtos'
     | '/sobre'
     | '/trabalhe-conosco'
+    | '/admin/cardapio'
     | '/admin/change-password'
     | '/admin/login'
     | '/admin/pedidos'
@@ -172,9 +194,11 @@ export interface FileRouteTypes {
     | '/carrinho'
     | '/contato'
     | '/lojas'
+    | '/menu'
     | '/produtos'
     | '/sobre'
     | '/trabalhe-conosco'
+    | '/admin/cardapio'
     | '/admin/change-password'
     | '/admin/login'
     | '/admin/pedidos'
@@ -188,9 +212,11 @@ export interface RootRouteChildren {
   CarrinhoRoute: typeof CarrinhoRoute
   ContatoRoute: typeof ContatoRoute
   LojasRoute: typeof LojasRoute
+  MenuRoute: typeof MenuRoute
   ProdutosRoute: typeof ProdutosRoute
   SobreRoute: typeof SobreRoute
   TrabalheConoscoRoute: typeof TrabalheConoscoRoute
+  AdminCardapioRoute: typeof AdminCardapioRoute
   AdminChangePasswordRoute: typeof AdminChangePasswordRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminPedidosRoute: typeof AdminPedidosRoute
@@ -229,6 +255,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LojasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/menu': {
+      id: '/menu'
+      path: '/menu'
+      fullPath: '/menu'
+      preLoaderRoute: typeof MenuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/produtos': {
       id: '/produtos'
       path: '/produtos'
@@ -255,6 +288,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/cardapio': {
+      id: '/admin/cardapio'
+      path: '/admin/cardapio'
+      fullPath: '/admin/cardapio'
+      preLoaderRoute: typeof AdminCardapioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/change-password': {
@@ -300,9 +340,11 @@ const rootRouteChildren: RootRouteChildren = {
   CarrinhoRoute: CarrinhoRoute,
   ContatoRoute: ContatoRoute,
   LojasRoute: LojasRoute,
+  MenuRoute: MenuRoute,
   ProdutosRoute: ProdutosRoute,
   SobreRoute: SobreRoute,
   TrabalheConoscoRoute: TrabalheConoscoRoute,
+  AdminCardapioRoute: AdminCardapioRoute,
   AdminChangePasswordRoute: AdminChangePasswordRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminPedidosRoute: AdminPedidosRoute,

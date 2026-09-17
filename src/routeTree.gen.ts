@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CarrinhoRouteImport } from './routes/carrinho'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as LojasRouteImport } from './routes/lojas'
+import { Route as MenuRouteImport } from './routes/menu'
 import { Route as ProdutosRouteImport } from './routes/produtos'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as TrabalheConoscoRouteImport } from './routes/trabalhe-conosco'
@@ -41,6 +42,11 @@ const ContatoRoute = ContatoRouteImport.update({
 const LojasRoute = LojasRouteImport.update({
   id: '/lojas',
   path: '/lojas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MenuRoute = MenuRouteImport.update({
+  id: '/menu',
+  path: '/menu',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProdutosRoute = ProdutosRouteImport.update({
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/carrinho': typeof CarrinhoRoute
   '/contato': typeof ContatoRoute
   '/lojas': typeof LojasRoute
+  '/menu': typeof MenuRoute
   '/produtos': typeof ProdutosRoute
   '/sobre': typeof SobreRoute
   '/trabalhe-conosco': typeof TrabalheConoscoRoute
@@ -109,6 +116,7 @@ export interface FileRoutesByTo {
   '/carrinho': typeof CarrinhoRoute
   '/contato': typeof ContatoRoute
   '/lojas': typeof LojasRoute
+  '/menu': typeof MenuRoute
   '/produtos': typeof ProdutosRoute
   '/sobre': typeof SobreRoute
   '/trabalhe-conosco': typeof TrabalheConoscoRoute
@@ -125,6 +133,7 @@ export interface FileRoutesById {
   '/carrinho': typeof CarrinhoRoute
   '/contato': typeof ContatoRoute
   '/lojas': typeof LojasRoute
+  '/menu': typeof MenuRoute
   '/produtos': typeof ProdutosRoute
   '/sobre': typeof SobreRoute
   '/trabalhe-conosco': typeof TrabalheConoscoRoute
@@ -142,6 +151,7 @@ export interface FileRouteTypes {
     | '/carrinho'
     | '/contato'
     | '/lojas'
+    | '/menu'
     | '/produtos'
     | '/sobre'
     | '/trabalhe-conosco'
@@ -157,6 +167,7 @@ export interface FileRouteTypes {
     | '/carrinho'
     | '/contato'
     | '/lojas'
+    | '/menu'
     | '/produtos'
     | '/sobre'
     | '/trabalhe-conosco'
@@ -172,6 +183,7 @@ export interface FileRouteTypes {
     | '/carrinho'
     | '/contato'
     | '/lojas'
+    | '/menu'
     | '/produtos'
     | '/sobre'
     | '/trabalhe-conosco'
@@ -188,6 +200,7 @@ export interface RootRouteChildren {
   CarrinhoRoute: typeof CarrinhoRoute
   ContatoRoute: typeof ContatoRoute
   LojasRoute: typeof LojasRoute
+  MenuRoute: typeof MenuRoute
   ProdutosRoute: typeof ProdutosRoute
   SobreRoute: typeof SobreRoute
   TrabalheConoscoRoute: typeof TrabalheConoscoRoute
@@ -227,6 +240,13 @@ declare module '@tanstack/react-router' {
       path: '/lojas'
       fullPath: '/lojas'
       preLoaderRoute: typeof LojasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/menu': {
+      id: '/menu'
+      path: '/menu'
+      fullPath: '/menu'
+      preLoaderRoute: typeof MenuRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/produtos': {
@@ -300,6 +320,7 @@ const rootRouteChildren: RootRouteChildren = {
   CarrinhoRoute: CarrinhoRoute,
   ContatoRoute: ContatoRoute,
   LojasRoute: LojasRoute,
+  MenuRoute: MenuRoute,
   ProdutosRoute: ProdutosRoute,
   SobreRoute: SobreRoute,
   TrabalheConoscoRoute: TrabalheConoscoRoute,

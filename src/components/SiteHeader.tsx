@@ -10,6 +10,7 @@ import { CartButton } from "./CartDrawer";
 const NAV = [
   { to: "/", label: "Início" },
   { to: "/produtos", label: "Produtos" },
+  { to: "/menu", label: "Cardápio" },
   { to: "/lojas", label: "Nossas Lojas" },
   { to: "/sobre", label: "Sobre" },
   { to: "/contato", label: "Contato" },

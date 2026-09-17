@@ -18,6 +18,7 @@ import { Route as ProdutosRouteImport } from './routes/produtos'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as TrabalheConoscoRouteImport } from './routes/trabalhe-conosco'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminCardapioRouteImport } from './routes/admin/cardapio'
 import { Route as AdminChangePasswordRouteImport } from './routes/admin/change-password'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminPedidosRouteImport } from './routes/admin/pedidos'
@@ -69,6 +70,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminCardapioRoute = AdminCardapioRouteImport.update({
+  id: '/admin/cardapio',
+  path: '/admin/cardapio',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminChangePasswordRoute = AdminChangePasswordRouteImport.update({
   id: '/admin/change-password',
   path: '/admin/change-password',
@@ -104,6 +110,7 @@ export interface FileRoutesByFullPath {
   '/produtos': typeof ProdutosRoute
   '/sobre': typeof SobreRoute
   '/trabalhe-conosco': typeof TrabalheConoscoRoute
+  '/admin/cardapio': typeof AdminCardapioRoute
   '/admin/change-password': typeof AdminChangePasswordRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/pedidos': typeof AdminPedidosRoute
@@ -120,6 +127,7 @@ export interface FileRoutesByTo {
   '/produtos': typeof ProdutosRoute
   '/sobre': typeof SobreRoute
   '/trabalhe-conosco': typeof TrabalheConoscoRoute
+  '/admin/cardapio': typeof AdminCardapioRoute
   '/admin/change-password': typeof AdminChangePasswordRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/pedidos': typeof AdminPedidosRoute
@@ -137,6 +145,7 @@ export interface FileRoutesById {
   '/produtos': typeof ProdutosRoute
   '/sobre': typeof SobreRoute
   '/trabalhe-conosco': typeof TrabalheConoscoRoute
+  '/admin/cardapio': typeof AdminCardapioRoute
   '/admin/change-password': typeof AdminChangePasswordRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/pedidos': typeof AdminPedidosRoute
@@ -155,6 +164,7 @@ export interface FileRouteTypes {
     | '/produtos'
     | '/sobre'
     | '/trabalhe-conosco'
+    | '/admin/cardapio'
     | '/admin/change-password'
     | '/admin/login'
     | '/admin/pedidos'
@@ -171,6 +181,7 @@ export interface FileRouteTypes {
     | '/produtos'
     | '/sobre'
     | '/trabalhe-conosco'
+    | '/admin/cardapio'
     | '/admin/change-password'
     | '/admin/login'
     | '/admin/pedidos'
@@ -187,6 +198,7 @@ export interface FileRouteTypes {
     | '/produtos'
     | '/sobre'
     | '/trabalhe-conosco'
+    | '/admin/cardapio'
     | '/admin/change-password'
     | '/admin/login'
     | '/admin/pedidos'
@@ -204,6 +216,7 @@ export interface RootRouteChildren {
   ProdutosRoute: typeof ProdutosRoute
   SobreRoute: typeof SobreRoute
   TrabalheConoscoRoute: typeof TrabalheConoscoRoute
+  AdminCardapioRoute: typeof AdminCardapioRoute
   AdminChangePasswordRoute: typeof AdminChangePasswordRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminPedidosRoute: typeof AdminPedidosRoute
@@ -277,6 +290,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/cardapio': {
+      id: '/admin/cardapio'
+      path: '/admin/cardapio'
+      fullPath: '/admin/cardapio'
+      preLoaderRoute: typeof AdminCardapioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/change-password': {
       id: '/admin/change-password'
       path: '/admin/change-password'
@@ -324,6 +344,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProdutosRoute: ProdutosRoute,
   SobreRoute: SobreRoute,
   TrabalheConoscoRoute: TrabalheConoscoRoute,
+  AdminCardapioRoute: AdminCardapioRoute,
   AdminChangePasswordRoute: AdminChangePasswordRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminPedidosRoute: AdminPedidosRoute,

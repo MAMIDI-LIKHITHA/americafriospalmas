@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ShoppingCart } from "lucide-react";
+import { ImageIcon, ShoppingCart, Star } from "lucide-react";
 import { toast } from "sonner";
 
 import { QuantityStepper } from "./QuantityStepper";
@@ -13,9 +13,24 @@ export function ProductRow({ product }: { product: Product }) {
   const { price, wholesaleApplied } = unitPriceFor(product, qty, mode);
 
   return (
-    <div className="flex flex-col gap-3 border-t border-border py-3 first:border-t-0 sm:flex-row sm:items-center sm:justify-between">
-      <div className="min-w-0">
-        <p className="text-sm font-semibold">{product.name}</p>
+    <div className="flex flex-col gap-4 border-t border-border py-4 first:border-t-0 sm:flex-row sm:items-center">
+      {product.image ? (
+        <img src={product.image} alt={product.name} loading="lazy" className="aspect-square w-full rounded-lg object-cover sm:h-24 sm:w-24" />
+      ) : (
+        <div className="flex aspect-square w-full items-center justify-center rounded-lg bg-muted text-muted-foreground sm:h-24 sm:w-24">
+          <ImageIcon className="h-6 w-6" />
+        </div>
+      )}
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-center gap-2">
+          <p className="text-sm font-semibold">{product.name}</p>
+          {product.featured && (
+            <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-1 text-xs font-semibold text-primary">
+              <Star className="h-3 w-3" /> Destaque
+            </span>
+          )}
+        </div>
+        {product.description && <p className="mt-1 text-sm text-muted-foreground">{product.description}</p>}
         <p className="text-sm text-muted-foreground">
           <span className="font-bold text-foreground">{brl(price)}</span> / {product.unit}
           {mode === "atacado" && !wholesaleApplied && (
@@ -29,7 +44,7 @@ export function ProductRow({ product }: { product: Product }) {
           )}
         </p>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex shrink-0 items-center gap-2">
         <QuantityStepper value={qty} onChange={setQty} />
         <button
           type="button"

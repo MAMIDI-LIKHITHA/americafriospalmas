@@ -34,8 +34,10 @@ export const getCatalog = createServerFn({ method: "GET" }).handler(
     const supabase = publicClient();
     const { data, error } = await supabase
       .from("products")
-      .select("slug, name, category, unit, price, wholesale_price, wholesale_min, image_url")
+      .select("slug, name, description, category, unit, price, wholesale_price, wholesale_min, image_url, featured, sort_order")
       .eq("available", true)
+      .order("featured", { ascending: false })
+      .order("sort_order", { ascending: true })
       .order("created_at", { ascending: true });
 
     if (error) throw new Error("Não foi possível carregar o catálogo.");
@@ -75,6 +77,8 @@ export const getCatalog = createServerFn({ method: "GET" }).handler(
         wholesaleMin: Number(r.wholesale_min ?? 1) || 1,
         category: r.category,
         image,
+        description: r.description,
+        featured: r.featured,
       };
       const list = byCategory.get(r.category);
       if (list) list.push(product);

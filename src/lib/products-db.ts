@@ -10,16 +10,23 @@ export type AdminProduct = {
   image_url: string | null;
   active: boolean;
   in_stock: boolean;
+  featured: boolean;
+  sort_order: number;
   created_at: string;
   updated_at: string;
 };
 
 export const PRODUCT_CATEGORIES = [
   "Frios",
+  "Queijos",
+  "Presuntos",
+  "Salames",
   "Embutidos",
-  "Suínos",
-  "Frangos",
-  "Espetinhos",
+  "Carnes",
+  "Frango",
+  "Linguiças",
+  "Congelados",
+  "Outros",
 ] as const;
 
 export const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
@@ -35,6 +42,8 @@ export type ProductInput = {
   image_url: string | null;
   active: boolean;
   in_stock: boolean;
+  featured: boolean;
+  sort_order: number;
 };
 
 export function slugify(value: string) {
@@ -76,6 +85,8 @@ export async function saveProduct(input: ProductInput) {
     image_url: input.image_url,
     active: input.active,
     in_stock: input.in_stock,
+    featured: input.featured,
+    sort_order: input.sort_order,
     // Public catálogo só lê available = true, então inativo desaparece da loja.
     available: input.active && input.in_stock,
   };
@@ -107,7 +118,8 @@ export async function deactivateProduct(id: string) {
 export async function fetchAdminProducts() {
   const { data, error } = await supabase
     .from("products")
-    .select("id, name, description, category, price, unit, image_url, active, in_stock, created_at, updated_at")
+    .select("id, name, description, category, price, unit, image_url, active, in_stock, featured, sort_order, created_at, updated_at")
+    .order("sort_order", { ascending: true })
     .order("name", { ascending: true });
   if (error) throw error;
   return (data ?? []) as AdminProduct[];

@@ -35,6 +35,8 @@ export function ProductForm({
   );
   const [inStock, setInStock] = useState(product?.in_stock ?? true);
   const [active, setActive] = useState(product?.active ?? true);
+  const [featured, setFeatured] = useState(product?.featured ?? false);
+  const [sortOrder, setSortOrder] = useState(product?.sort_order ?? 0);
   const [imagePath, setImagePath] = useState<string | null>(product?.image_url ?? null);
   const [preview, setPreview] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
@@ -103,6 +105,8 @@ export function ProductForm({
         image_url: finalImage,
         active,
         in_stock: inStock,
+        featured,
+        sort_order: sortOrder,
       });
 
       toast.success(product ? "Produto atualizado." : "Produto criado.");
@@ -253,6 +257,30 @@ export function ProductForm({
               className="h-4 w-4"
             />
             <span className="text-sm font-semibold text-foreground">Em estoque</span>
+          </label>
+
+          <label className="flex items-center gap-3 rounded-lg border border-border p-3">
+            <input
+              type="checkbox"
+              checked={featured}
+              onChange={(e) => setFeatured(e.target.checked)}
+              className="h-4 w-4"
+            />
+            <span className="text-sm font-semibold text-foreground">Produto em destaque</span>
+          </label>
+
+          <label>
+            <span className="text-xs font-semibold uppercase text-muted-foreground">
+              Ordem de exibição
+            </span>
+            <input
+              type="number"
+              min={0}
+              step={1}
+              value={sortOrder}
+              onChange={(e) => setSortOrder(Math.max(0, Number(e.target.value) || 0))}
+              className={inputClass}
+            />
           </label>
 
           <label className="flex items-center gap-3 rounded-lg border border-border p-3">

@@ -32,7 +32,7 @@ function ContatoPage() {
       </h1>
       <p className="mt-4 max-w-2xl text-muted-foreground">
         O jeito mais rápido de falar com a gente é pelo WhatsApp: tiramos dúvidas, confirmamos
-        estoque e passamos valores de atacado e varejo.
+        estoque, informamos horários e explicamos as opções para consumo no local.
       </p>
 
       <div className="mt-10 grid gap-6 lg:grid-cols-2">
@@ -85,6 +85,9 @@ function ContatoPage() {
             </a>
           </div>
           <WhatsAppButton size="lg" block />
+          <p className="rounded-lg bg-secondary p-4 text-sm text-secondary-foreground">
+            <strong>Consumo no local:</strong> fale conosco para conhecer os produtos disponíveis no estabelecimento.
+          </p>
         </div>
 
         <div className="card-surface space-y-5 p-6">

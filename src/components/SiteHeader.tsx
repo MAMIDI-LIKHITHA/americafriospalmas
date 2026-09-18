@@ -10,11 +10,9 @@ import { CartButton } from "./CartDrawer";
 const NAV = [
   { to: "/", label: "Início" },
   { to: "/produtos", label: "Produtos" },
-  { to: "/menu", label: "Cardápio" },
-  { to: "/lojas", label: "Nossas Lojas" },
   { to: "/sobre", label: "Sobre" },
+  { to: "/menu", label: "Consumo no Local" },
   { to: "/contato", label: "Contato" },
-  { to: "/trabalhe-conosco", label: "Trabalhe Conosco" },
 ] as const;
 
 export function SiteHeader() {

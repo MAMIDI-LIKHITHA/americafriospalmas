@@ -7,7 +7,7 @@ import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { catalogQueryOptions } from "@/lib/catalog";
 
 const description =
-  "Catálogo América Frios Palmas: frios, embutidos, suínos, frangos e espetinhos no atacado e varejo. Monte seu pedido online com entrega ou retirada.";
+  "Catálogo América Frios Palmas: frios, queijos, presuntos, salames, carnes, frango, linguiças, congelados e outros produtos alimentícios.";
 
 export const Route = createFileRoute("/produtos")({
   head: () => ({
@@ -47,7 +47,7 @@ function ProdutosPage() {
     <div className="container-page py-14">
       <p className="text-sm font-bold tracking-widest text-primary uppercase">Catálogo</p>
       <h1 className="mt-2 max-w-3xl font-display text-3xl md:text-4xl">
-        Nossos produtos: frios, embutidos, suínos, frangos e espetinhos
+         Produtos para todos os momentos
       </h1>
       <p className="mt-4 max-w-2xl text-muted-foreground">
         Escolha os itens, ajuste as quantidades e finalize o pedido aqui no site — com entrega
@@ -72,7 +72,7 @@ function ProdutosPage() {
           Precisa de um orçamento para atacado?
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-sm text-cream/75">
-          Atendemos mercados, lanchonetes, restaurantes e revendedores em Palmas e região.
+           Atendemos famílias, mercados, lanchonetes e revendedores em Palmas e região.
         </p>
         <WhatsAppButton
           size="lg"

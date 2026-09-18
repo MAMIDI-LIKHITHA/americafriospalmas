@@ -220,12 +220,14 @@ export type Database = {
           category: string
           created_at: string
           description: string | null
+          featured: boolean
           id: string
           image_url: string | null
           in_stock: boolean
           name: string
           price: number | null
           slug: string | null
+          sort_order: number
           unit: string
           updated_at: string
           wholesale_min: number
@@ -237,12 +239,14 @@ export type Database = {
           category: string
           created_at?: string
           description?: string | null
+          featured?: boolean
           id?: string
           image_url?: string | null
           in_stock?: boolean
           name: string
           price?: number | null
           slug?: string | null
+          sort_order?: number
           unit?: string
           updated_at?: string
           wholesale_min?: number
@@ -254,12 +258,14 @@ export type Database = {
           category?: string
           created_at?: string
           description?: string | null
+          featured?: boolean
           id?: string
           image_url?: string | null
           in_stock?: boolean
           name?: string
           price?: number | null
           slug?: string | null
+          sort_order?: number
           unit?: string
           updated_at?: string
           wholesale_min?: number

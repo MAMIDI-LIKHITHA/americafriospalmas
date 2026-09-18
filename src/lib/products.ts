@@ -4,6 +4,7 @@ import embutidos from "@/assets/embutidos.jpg";
 import suinos from "@/assets/suinos.jpg";
 import frangos from "@/assets/frangos.jpg";
 import espetinhos from "@/assets/espetinhos.jpg";
+import atacado from "@/assets/atacado.jpg";
 
 export type Product = {
   /** slug do produto no banco — usado como identificador no carrinho e no checkout */
@@ -15,6 +16,8 @@ export type Product = {
   wholesaleMin: number;
   category: string;
   image: string | null;
+  description: string | null;
+  featured: boolean;
 };
 
 export type Category = {
@@ -35,16 +38,28 @@ export const CATEGORY_META: {
   description: string;
 }[] = [
   {
-    slug: "espetinhos",
-    name: "Espetinhos",
-    image: espetinhos,
-    description: "Espetinhos temperados de carne, frango, linguiça e queijo coalho.",
-  },
-  {
     slug: "frios",
     name: "Frios",
     image: frios,
     description: "Queijos, mussarela fatiada, presunto e apresuntado, peito de peru.",
+  },
+  {
+    slug: "queijos",
+    name: "Queijos",
+    image: frios,
+    description: "Uma seleção de queijos para diferentes momentos e receitas.",
+  },
+  {
+    slug: "presuntos",
+    name: "Presuntos",
+    image: frios,
+    description: "Presuntos e opções fatiadas para sua casa ou negócio.",
+  },
+  {
+    slug: "salames",
+    name: "Salames",
+    image: embutidos,
+    description: "Salames e frios selecionados para servir e compartilhar.",
   },
   {
     slug: "embutidos",
@@ -53,16 +68,34 @@ export const CATEGORY_META: {
     description: "Linguiças, salsichas, salames e mortadelas para o dia a dia e para revenda.",
   },
   {
-    slug: "suinos",
-    name: "Suínos",
+    slug: "carnes",
+    name: "Carnes",
     image: suinos,
-    description: "Cortes suínos frescos: costelinha, pernil, lombo, bisteca e panceta.",
+    description: "Carnes e cortes selecionados para o dia a dia.",
   },
   {
-    slug: "frangos",
-    name: "Frangos",
+    slug: "frango",
+    name: "Frango",
     image: frangos,
-    description: "Frango inteiro e cortes: coxa, sobrecoxa, filé de peito e asinha.",
+    description: "Frango e cortes variados para diferentes preparos.",
+  },
+  {
+    slug: "linguicas",
+    name: "Linguiças",
+    image: embutidos,
+    description: "Linguiças para refeições, churrascos e revenda.",
+  },
+  {
+    slug: "congelados",
+    name: "Congelados",
+    image: atacado,
+    description: "Produtos congelados práticos para sua rotina.",
+  },
+  {
+    slug: "outros",
+    name: "Outros",
+    image: espetinhos,
+    description: "Outros produtos alimentícios disponíveis na América Frios.",
   },
 ];
 

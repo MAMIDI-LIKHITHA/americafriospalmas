@@ -7,14 +7,14 @@ import { dineInMenuQueryOptions } from "@/lib/dinein";
 import { brl } from "@/lib/order";
 
 const description =
-  "Cardápio do salão América Frios Palmas: espetinhos, porções e bebidas para consumo no local, com fotos, descrições e preços atualizados.";
+  "Conheça os produtos selecionados da América Frios disponíveis para consumo no local, com fotos, descrições e preços atualizados.";
 
 export const Route = createFileRoute("/menu")({
   head: () => ({
     meta: [
-      { title: "Cardápio do Salão | América Frios Palmas" },
+      { title: "Consumo no Local | América Frios Palmas" },
       { name: "description", content: description },
-      { property: "og:title", content: "Cardápio do Salão | América Frios Palmas" },
+      { property: "og:title", content: "Consumo no Local | América Frios Palmas" },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -30,7 +30,7 @@ export const Route = createFileRoute("/menu")({
 function MenuError() {
   return (
     <div className="container-page py-20 text-center">
-      <h1 className="font-display text-2xl">Não foi possível carregar o cardápio</h1>
+      <h1 className="font-display text-2xl">Não foi possível carregar os produtos</h1>
       <p className="mt-3 text-muted-foreground">
         Atualize a página em alguns instantes ou fale conosco no WhatsApp.
       </p>
@@ -46,10 +46,10 @@ function MenuPage() {
   return (
     <div className="container-page py-10 md:py-14">
       <p className="text-sm font-bold tracking-widest text-primary uppercase">Consumo no local</p>
-      <h1 className="mt-2 max-w-3xl font-display text-3xl md:text-4xl">Cardápio do Salão</h1>
+      <h1 className="mt-2 max-w-3xl font-display text-3xl md:text-4xl">Produtos para consumo no local</h1>
       <p className="mt-4 max-w-2xl text-muted-foreground">
-        Itens preparados para consumo na loja. Os preços e produtos do cardápio são
-        independentes da nossa loja online de entrega e retirada.
+        Aproveite uma seleção de produtos no próprio estabelecimento. Esta seleção é
+        independente do catálogo online de entrega e retirada.
       </p>
 
       {visible.length > 1 && (
@@ -68,7 +68,7 @@ function MenuPage() {
 
       {visible.length === 0 ? (
         <p className="mt-10 rounded-2xl border border-border bg-card p-6 text-sm text-muted-foreground">
-          O cardápio do salão está sendo montado. Em breve você encontra tudo por aqui.
+          Nossa seleção para consumo no local está sendo preparada. Em breve você encontra tudo por aqui.
         </p>
       ) : (
         <div className="mt-10 space-y-12">

@@ -30,13 +30,13 @@ export const Route = createFileRoute("/admin/cardapio")({
   },
   head: () => ({
     meta: [
-      { title: "Cardápio do Salão | Painel América Frios" },
+      { title: "Consumo no Local | Painel América Frios" },
       {
         name: "description",
         content: "Gestão do cardápio de consumo no local da América Frios.",
       },
       { name: "robots", content: "noindex, nofollow" },
-      { property: "og:title", content: "Cardápio do Salão | Painel América Frios" },
+      { property: "og:title", content: "Consumo no Local | Painel América Frios" },
       {
         property: "og:description",
         content: "Área restrita para gerenciar o cardápio do salão.",
@@ -150,7 +150,7 @@ function AdminDineInPage() {
 
   return (
     <AdminShell
-      title="Cardápio do Salão"
+      title="Consumo no Local"
       subtitle="Catálogo independente para consumo no local. Não afeta a loja online."
       actions={
         <>

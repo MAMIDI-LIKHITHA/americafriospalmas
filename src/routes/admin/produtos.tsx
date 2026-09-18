@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { ImageIcon, Trash2 } from "lucide-react";
+import { ImageIcon, Star, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { AdminShell } from "@/components/admin/AdminShell";
@@ -151,7 +151,7 @@ function AdminProductsPage() {
   return (
     <AdminShell
       title="Produtos"
-      subtitle="Catálogo completo: estoque, ativação e preços."
+      subtitle="Catálogo completo: produtos, categorias, destaque, ordem, estoque e preços."
       actions={
         <>
           <button
@@ -249,7 +249,7 @@ function AdminProductsPage() {
                     <td className="px-3 py-3">
                       <ProductThumbnail id={p.id} url={imageUrls[p.id]} name={p.name} />
                     </td>
-                    <td className="px-3 py-3 font-semibold">{p.name}</td>
+                    <td className="px-3 py-3 font-semibold"><span className="flex items-center gap-2">{p.name}{p.featured && <Star className="h-4 w-4 text-primary" aria-label="Destaque" />}</span></td>
                     <td className="px-3 py-3">{p.category}</td>
                     <td className="px-3 py-3 tabular-nums">
                       {p.price != null ? (
@@ -304,6 +304,7 @@ function AdminProductsPage() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="font-semibold text-foreground">{p.name}</p>
+                  {p.featured && <span className="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-primary"><Star className="h-3 w-3" /> Destaque</span>}
                   <p className="text-sm text-muted-foreground">{p.category}</p>
                   <p className="mt-1 text-sm tabular-nums">
                     {p.price != null ? (

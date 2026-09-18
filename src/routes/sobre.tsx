@@ -11,7 +11,7 @@ import espetinhos from "@/assets/espetinhos.jpg";
 import embutidos from "@/assets/embutidos.jpg";
 
 const description =
-  "Conheça a América Frios: atacado e varejo de frios, embutidos, suínos e frangos em Palmas - TO, com 2 lojas, 4,5★ no Google e +20 mil seguidores.";
+  "Conheça a América Frios, uma opção em Palmas para quem busca variedade, qualidade e sabor em produtos alimentícios.";
 
 export const Route = createFileRoute("/sobre")({
   head: () => ({
@@ -41,16 +41,15 @@ function SobrePage() {
     <div className="container-page py-14">
       <p className="text-sm font-bold tracking-widest text-primary uppercase">Sobre nós</p>
       <h1 className="mt-2 max-w-3xl font-display text-3xl md:text-4xl">
-        Produzindo os melhores alimentos para sua mesa
+         Sobre a América Frios
       </h1>
 
       <div className="mt-8 grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-start">
         <div className="space-y-4 text-muted-foreground">
           <p>
-            A América Frios é uma distribuidora e loja de frios, embutidos, carnes suínas e
-            frangos em Palmas, Tocantins. Trabalhamos com atacado e varejo: atendemos tanto a
-            família que quer abastecer a geladeira da semana quanto mercados, lanchonetes,
-            restaurantes e revendedores que precisam de volume com preço justo.
+             A América Frios é uma opção para quem busca variedade, qualidade e sabor em produtos
+             alimentícios, com atendimento em Palmas e a possibilidade de aproveitar a experiência
+             no local.
           </p>
           <p>
             Hoje somos <strong className="text-foreground">2 lojas</strong> em pontos
@@ -65,8 +64,8 @@ function SobrePage() {
             divulgamos novidades e ofertas da semana.
           </p>
           <p>
-            Nosso compromisso é simples: produto fresco, preço de atacado e atendimento
-            próximo — pelo WhatsApp, no balcão ou no delivery.
+             Nosso foco é oferecer produtos de qualidade, variedade e atendimento próximo — pelo
+             WhatsApp, nas lojas, para entrega, retirada ou consumo no local.
           </p>
           <WhatsAppButton className="mt-2" size="lg" />
         </div>

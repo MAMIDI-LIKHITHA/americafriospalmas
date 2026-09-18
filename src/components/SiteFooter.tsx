@@ -21,8 +21,8 @@ export function SiteFooter() {
             <span className="font-display text-lg font-bold">América Frios</span>
           </div>
           <p className="mt-4 max-w-xs text-sm text-cream/70">
-            Produzindo os melhores alimentos para sua mesa. Atacado e varejo de frios,
-            embutidos, suínos e frangos em Palmas - TO.
+             Variedade, qualidade e sabor em frios, queijos, carnes, embutidos e outros produtos
+             alimentícios em Palmas - TO.
           </p>
           <div className="mt-4 flex gap-3">
             <a
@@ -49,7 +49,7 @@ export function SiteFooter() {
         <div>
           <h3 className="text-sm font-bold tracking-wide uppercase text-cream">Produtos</h3>
           <ul className="mt-4 space-y-2 text-sm text-cream/70">
-            {["Frios", "Embutidos", "Suínos", "Frangos", "Espetinhos"].map((p) => (
+             {["Frios", "Queijos", "Presuntos", "Salames", "Embutidos", "Carnes", "Frango", "Linguiças", "Congelados", "Outros"].map((p) => (
               <li key={p}>
                 <Link to="/produtos" className="hover:text-cream">
                   {p}
@@ -79,6 +79,11 @@ export function SiteFooter() {
             <li>
               <Link to="/sobre" className="hover:text-cream">
                 Sobre
+              </Link>
+            </li>
+            <li>
+              <Link to="/menu" className="hover:text-cream">
+                Consumo no Local
               </Link>
             </li>
             <li>

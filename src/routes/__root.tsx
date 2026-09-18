@@ -87,7 +87,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Atacado e varejo de frios, embutidos, suínos e frangos em Palmas - TO. 3 lojas, delivery rápido e pedidos pelo WhatsApp.",
+          "Variedade, qualidade e sabor em frios, queijos, carnes, embutidos e outros produtos alimentícios em Palmas - TO.",
       },
       { name: "author", content: "América Frios" },
       { property: "og:site_name", content: "América Frios" },

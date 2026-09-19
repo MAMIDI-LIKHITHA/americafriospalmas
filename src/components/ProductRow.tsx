@@ -10,14 +10,25 @@ import type { Product } from "@/lib/products";
 export function ProductRow({ product }: { product: Product }) {
   const { add, mode, setDrawerOpen } = useCart();
   const [qty, setQty] = useState(1);
+  const [imageFailed, setImageFailed] = useState(false);
   const { price, wholesaleApplied } = unitPriceFor(product, qty, mode);
+  const showImage = Boolean(product.image) && !imageFailed;
 
   return (
     <div className="flex flex-col gap-4 border-t border-border py-4 first:border-t-0 sm:flex-row sm:items-center">
-      {product.image ? (
-        <img src={product.image} alt={product.name} loading="lazy" className="aspect-square w-full rounded-lg object-cover sm:h-24 sm:w-24" />
+      {showImage ? (
+        <img
+          src={product.image!}
+          alt={product.name}
+          loading="lazy"
+          className="aspect-square w-full rounded-lg object-cover sm:h-24 sm:w-24"
+          onError={() => setImageFailed(true)}
+        />
       ) : (
-        <div className="flex aspect-square w-full items-center justify-center rounded-lg bg-muted text-muted-foreground sm:h-24 sm:w-24">
+        <div
+          className="flex aspect-square w-full items-center justify-center rounded-lg bg-muted text-muted-foreground sm:h-24 sm:w-24"
+          aria-label={`Imagem de ${product.name} indisponível`}
+        >
           <ImageIcon className="h-6 w-6" />
         </div>
       )}

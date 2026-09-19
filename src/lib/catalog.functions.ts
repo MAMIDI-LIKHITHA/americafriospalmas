@@ -44,7 +44,7 @@ export const getCatalog = createServerFn({ method: "GET" }).handler(
 
     const rows = (data ?? []).filter((r) => r.slug && Number(r.price ?? 0) > 0);
 
-    // Imagens ficam num bucket privado: geramos URLs assinadas de curta duração.
+    // Imagens ficam num bucket privado: geramos URLs assinadas por 24 horas.
     const paths = rows
       .map((r) => r.image_url)
       .filter((u): u is string => !!u && !/^https?:\/\//i.test(u));
@@ -52,7 +52,7 @@ export const getCatalog = createServerFn({ method: "GET" }).handler(
     if (paths.length > 0) {
       const { data: urls } = await supabase.storage
         .from("product-images")
-        .createSignedUrls(paths, 3600);
+        .createSignedUrls([...new Set(paths)], 86400);
       for (const u of urls ?? []) {
         if (u.path && u.signedUrl) signed.set(u.path, u.signedUrl);
       }

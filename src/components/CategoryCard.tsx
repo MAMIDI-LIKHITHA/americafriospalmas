@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { ImageIcon } from "lucide-react";
 
 import type { Category } from "@/lib/products";
 import { ProductRow } from "./ProductRow";
@@ -16,14 +17,27 @@ export function CategoryCard({
   return (
     <article className="card-surface flex flex-col overflow-hidden" id={category.slug}>
       <div className="relative aspect-4/3 overflow-hidden bg-muted">
-        <img
-          src={category.image}
-          alt={`${category.name} — América Frios`}
-          width={1024}
-          height={768}
-          loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-        />
+        {category.image ? (
+          <img
+            src={category.image}
+            alt={`${category.name} — América Frios`}
+            width={1024}
+            height={768}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+            onError={(event) => {
+              event.currentTarget.style.display = "none";
+              event.currentTarget.nextElementSibling?.classList.remove("hidden");
+            }}
+          />
+        ) : null}
+        <div
+          className={`absolute inset-0 flex flex-col items-center justify-center gap-2 bg-muted text-muted-foreground ${category.image ? "hidden" : ""}`}
+          aria-label={`Imagem de ${category.name} indisponível`}
+        >
+          <ImageIcon className="h-8 w-8" />
+          <span className="text-sm font-semibold">{category.name}</span>
+        </div>
         <span className="absolute top-3 left-3 rounded-full bg-primary px-3 py-1 text-xs font-bold text-primary-foreground">
           A partir de {brl(from)}
         </span>

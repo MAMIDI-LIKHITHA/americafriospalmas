@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useSuspenseQuery } from "@tanstack/react-router";
 import { Star, Store, MessageCircle, PackageCheck, Sparkles, Utensils, Instagram } from "lucide-react";
 
 import { CategoryCard } from "@/components/CategoryCard";

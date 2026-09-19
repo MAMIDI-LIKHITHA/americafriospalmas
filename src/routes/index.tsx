@@ -7,7 +7,7 @@ import { StoreCard } from "@/components/StoreCard";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { catalogQueryOptions } from "@/lib/catalog";
 import { STORES, localBusinessSchema } from "@/lib/site";
-import heroImg from "@/assets/frios.jpg";
+import heroImg from "@/assets/Homepage.png";
 import localImg from "@/assets/loja-interior.jpg";
 import varietyImg from "@/assets/embutidos.jpg";
 
@@ -65,7 +65,7 @@ function Index() {
       <section className="relative overflow-hidden border-b border-border">
         <img
           src={heroImg}
-          alt="Interior de loja da América Frios com balcões refrigerados de frios e embutidos"
+          alt="América Frios — variedade, qualidade e sabor"
           width={1536}
           height={864}
           className="absolute inset-0 h-full w-full object-cover"

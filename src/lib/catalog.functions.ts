@@ -44,29 +44,19 @@ export const getCatalog = createServerFn({ method: "GET" }).handler(
 
     const rows = (data ?? []).filter((r) => r.slug && Number(r.price ?? 0) > 0);
 
-    // Imagens ficam num bucket privado: geramos URLs assinadas por 24 horas.
-    const paths = rows
-      .map((r) => r.image_url)
-      .filter((u): u is string => !!u && !/^https?:\/\//i.test(u));
-    const signed = new Map<string, string>();
-    if (paths.length > 0) {
-      const { data: urls } = await supabase.storage
-        .from("product-images")
-        .createSignedUrls([...new Set(paths)], 86400);
-      for (const u of urls ?? []) {
-        if (u.path && u.signedUrl) signed.set(u.path, u.signedUrl);
-      }
-    }
+    // Product images are public storefront assets. image_url stores the path
+    // inside the product-images bucket, so use stable public URLs instead of
+    // expiring signed URLs that depend on authenticated storage access.
+    const imageUrl = (value: string | null) => {
+      if (!value) return null;
+      if (/^https?:\/\//i.test(value)) return value;
+      return supabase.storage.from("product-images").getPublicUrl(value).data.publicUrl;
+    };
 
     const byCategory = new Map<string, Product[]>();
     for (const r of rows) {
       const retail = Number(r.price ?? 0);
       const wholesale = Number(r.wholesale_price ?? retail) || retail;
-      const image = r.image_url
-        ? /^https?:\/\//i.test(r.image_url)
-          ? r.image_url
-          : (signed.get(r.image_url) ?? null)
-        : null;
 
       const product: Product = {
         id: r.slug!,
@@ -76,7 +66,7 @@ export const getCatalog = createServerFn({ method: "GET" }).handler(
         wholesale,
         wholesaleMin: Number(r.wholesale_min ?? 1) || 1,
         category: r.category,
-        image,
+        image: imageUrl(r.image_url),
         description: r.description,
         featured: r.featured,
       };

@@ -23,7 +23,7 @@ export type Product = {
 export type Category = {
   slug: string;
   name: string;
-  image: string;
+  image: string | null;
   description: string;
   items: string[];
   products: Product[];
@@ -34,7 +34,7 @@ export type Category = {
 export const CATEGORY_META: {
   slug: string;
   name: string;
-  image: string;
+  image: string | null;
   description: string;
 }[] = [
   {
@@ -46,19 +46,19 @@ export const CATEGORY_META: {
   {
     slug: "queijos",
     name: "Queijos",
-    image: frios,
+    image: null,
     description: "Uma seleção de queijos para diferentes momentos e receitas.",
   },
   {
     slug: "presuntos",
     name: "Presuntos",
-    image: frios,
+    image: null,
     description: "Presuntos e opções fatiadas para sua casa ou negócio.",
   },
   {
     slug: "salames",
     name: "Salames",
-    image: embutidos,
+    image: null,
     description: "Salames e frios selecionados para servir e compartilhar.",
   },
   {
@@ -82,7 +82,7 @@ export const CATEGORY_META: {
   {
     slug: "linguicas",
     name: "Linguiças",
-    image: embutidos,
+    image: null,
     description: "Linguiças para refeições, churrascos e revenda.",
   },
   {

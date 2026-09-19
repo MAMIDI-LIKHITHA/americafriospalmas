@@ -8,7 +8,7 @@ import { catalogQueryOptions } from "@/lib/catalog";
 import { STORES, localBusinessSchema } from "@/lib/site";
 import heroImg from "@/assets/Homepage.png";
 import localImg from "@/assets/loja-interior.jpg";
-import varietyImg from "@/assets/embutidos.jpg";
+import varietyImg from "@/assets/deli-variety.png";
 
 const description =
   "América Frios em Palmas: variedade, qualidade e sabor em frios, queijos, carnes, embutidos e outros produtos alimentícios.";

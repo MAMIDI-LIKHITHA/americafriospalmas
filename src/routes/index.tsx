@@ -85,7 +85,7 @@ function Index() {
             <Link to="/produtos" className="btn-base btn-brand px-6 py-3.5 text-base">
               Ver Produtos
             </Link>
-            <WhatsAppButton size="lg" />
+            <WhatsAppButton size="lg" label="Falar no WhatsApp" />
           </div>
         </div>
       </section>

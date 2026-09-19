@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Store, Star, Users, Truck } from "lucide-react";
 
 import { WhatsAppButton } from "@/components/WhatsAppButton";
-// PLACEHOLDER IMAGES (IA) — substituir pelas fotos reais do cliente.
 import interior from "@/assets/loja-interior.jpg";
 import atacado from "@/assets/atacado.jpg";
 import fachada from "@/assets/loja-fachada.jpg";

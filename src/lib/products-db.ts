@@ -26,6 +26,7 @@ export const PRODUCT_CATEGORIES = [
   "Frango",
   "Linguiças",
   "Congelados",
+  "Para Comer Aqui",
   "Outros",
 ] as const;
 

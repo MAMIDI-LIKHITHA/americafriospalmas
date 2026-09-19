@@ -13,6 +13,7 @@ const NAV = [
   { to: "/sobre", label: "Sobre" },
   { to: "/menu", label: "Consumo no Local" },
   { to: "/contato", label: "Contato" },
+  { to: "/trabalhe-conosco", label: "Trabalhe Conosco" },
 ] as const;
 
 export function SiteHeader() {

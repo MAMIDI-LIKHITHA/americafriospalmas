@@ -56,7 +56,7 @@ export function slugify(value: string) {
     .slice(0, 60);
 }
 
-/** Uploads an image to the private product-images bucket. Only admins pass RLS. */
+/** Uploads an image to the public product-images bucket. Only admins can upload via RLS. */
 export async function uploadProductImage(file: File) {
   if (!ALLOWED_IMAGE_TYPES.includes(file.type as (typeof ALLOWED_IMAGE_TYPES)[number])) {
     throw new Error("Formato inválido. Use JPG, PNG ou WEBP.");
@@ -87,7 +87,6 @@ export async function saveProduct(input: ProductInput) {
     in_stock: input.in_stock,
     featured: input.featured,
     sort_order: input.sort_order,
-    // Public catálogo só lê available = true, então inativo desaparece da loja.
     available: input.active && input.in_stock,
   };
 
@@ -104,9 +103,6 @@ export async function saveProduct(input: ProductInput) {
   if (error) throw error;
 }
 
-/** Soft delete: marks the product inactive (never removes the row).
- *  Past orders are unaffected because order_items keeps its own name/price
- *  snapshot. available=false removes it from the public catalog. */
 export async function deactivateProduct(id: string) {
   const { error } = await supabase
     .from("products")
@@ -125,18 +121,10 @@ export async function fetchAdminProducts() {
   return (data ?? []) as AdminProduct[];
 }
 
-/** Returns a usable image URL. External URLs are used as-is; storage paths
- *  are converted into a short-lived signed URL because the bucket is private. */
+/** Returns a stable public image URL for storefront/admin previews. */
 export async function resolveProductImageUrl(imageUrl: string | null) {
   if (!imageUrl) return null;
   if (/^https?:\/\//i.test(imageUrl)) return imageUrl;
 
-  const { data, error } = await supabase.storage
-    .from("product-images")
-    .createSignedUrl(imageUrl, 3600);
-  if (error) {
-    // Fail closed: show placeholder instead of leaking storage errors.
-    return null;
-  }
-  return data?.signedUrl ?? null;
+  return supabase.storage.from("product-images").getPublicUrl(imageUrl).data.publicUrl;
 }

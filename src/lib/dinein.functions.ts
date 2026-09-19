@@ -55,22 +55,40 @@ export const getDineInMenu = createServerFn({ method: "GET" }).handler(
           .order("sort_order", { ascending: true }),
       ]);
 
-    if (catError || itemError) throw new Error("Não foi possível carregar os produtos para consumo no local.");
+    // GitHub fallback keeps the dedicated /menu page usable when the optional
+    // dine-in tables have not yet been created/populated in Supabase.
+    if (catError || itemError || !(cats ?? []).length) {
+      return [{
+        id: "github-dine-in",
+        name: "Para Comer Aqui",
+        slug: "para-comer-aqui",
+        description: "Opções para consumo no local.",
+        items: [
+          { id: "eat-in-espetinho-de-carne", name: "Espetinho de Carne", description: "Espetinho para consumo no local.", price: 12, image: null, available: true, featured: false },
+          { id: "eat-in-espetinho-de-frango", name: "Espetinho de Frango", description: "Espetinho para consumo no local.", price: 10, image: null, available: true, featured: false },
+          { id: "eat-in-linguica-na-chapa", name: "Linguiça na Chapa", description: "Linguiça preparada na chapa para consumo no local.", price: 14, image: null, available: true, featured: false },
+          { id: "eat-in-pao-de-alho", name: "Pão de Alho", description: "Pão de alho para consumo no local.", price: 8, image: null, available: true, featured: false },
+          { id: "eat-in-porcao-batata-frita", name: "Porção de Batata Frita", description: "Porção para consumo no local.", price: 18, image: null, available: true, featured: false },
+          { id: "eat-in-sanduiche-presunto-queijo", name: "Sanduíche de Presunto e Queijo", description: "Sanduíche para consumo no local.", price: 15, image: null, available: true, featured: false },
+          { id: "drink-refrigerante-lata", name: "Refrigerante em Lata", description: "Bebida gelada para consumo no local.", price: 9, image: null, available: true, featured: false },
+          { id: "drink-refrigerante-600ml", name: "Refrigerante 600ml", description: "Bebida gelada para consumo no local.", price: 12, image: null, available: true, featured: false },
+          { id: "drink-agua-mineral", name: "Água Mineral", description: "Bebida gelada para consumo no local.", price: 6, image: null, available: true, featured: false },
+          { id: "drink-agua-com-gas", name: "Água com Gás", description: "Bebida gelada para consumo no local.", price: 7, image: null, available: true, featured: false },
+          { id: "drink-suco-natural", name: "Suco Natural", description: "Bebida gelada para consumo no local.", price: 15, image: null, available: true, featured: false },
+        ],
+      }];
+    }
 
     const rows = items ?? [];
     const paths = rows
       .map((r) => r.image_url)
       .filter((u): u is string => !!u && !/^https?:\/\//i.test(u));
 
-    const signed = new Map<string, string>();
-    if (paths.length > 0) {
-      const { data: urls } = await supabase.storage
-        .from("product-images")
-        .createSignedUrls(paths, 3600);
-      for (const u of urls ?? []) {
-        if (u.path && u.signedUrl) signed.set(u.path, u.signedUrl);
-      }
-    }
+    const publicImageUrl = (value: string | null) => {
+      if (!value) return null;
+      if (/^https?:\/\//i.test(value)) return value;
+      return supabase.storage.from("product-images").getPublicUrl(value).data.publicUrl;
+    };
 
     return (cats ?? []).map((c) => ({
       id: c.id,
@@ -87,7 +105,7 @@ export const getDineInMenu = createServerFn({ method: "GET" }).handler(
           image: i.image_url
             ? /^https?:\/\//i.test(i.image_url)
               ? i.image_url
-              : (signed.get(i.image_url) ?? null)
+              : publicImageUrl(i.image_url)
             : null,
           available: i.available,
           featured: i.featured,

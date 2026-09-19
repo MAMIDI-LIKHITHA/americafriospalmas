@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { Star, Store, MessageCircle, PackageCheck, Sparkles, Utensils, Instagram } from "lucide-react";
 
 import { CategoryCard } from "@/components/CategoryCard";
@@ -70,7 +69,7 @@ function Index() {
           height={864}
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-charcoal/78" />
+        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/75 via-charcoal/35 to-transparent" />
         <div className="container-page relative py-16 md:py-24">
           <p className="font-display text-sm font-semibold tracking-widest text-cream/70 uppercase">
             Variedade e qualidade · Palmas - TO

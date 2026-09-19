@@ -5,6 +5,10 @@ import suinos from "@/assets/suinos.jpg";
 import frangos from "@/assets/frangos.jpg";
 import espetinhos from "@/assets/espetinhos.jpg";
 import atacado from "@/assets/atacado.jpg";
+import categoryQueijos from "@/assets/category-queijos.svg";
+import categoryPresuntos from "@/assets/category-presuntos.svg";
+import categorySalames from "@/assets/category-salames.svg";
+import categoryLinguicas from "@/assets/category-linguicas.svg";
 
 export type Product = {
   /** slug do produto no banco — usado como identificador no carrinho e no checkout */
@@ -46,19 +50,19 @@ export const CATEGORY_META: {
   {
     slug: "queijos",
     name: "Queijos",
-    image: frios,
+    image: categoryQueijos,
     description: "Uma seleção de queijos para diferentes momentos e receitas.",
   },
   {
     slug: "presuntos",
     name: "Presuntos",
-    image: frios,
+    image: categoryPresuntos,
     description: "Presuntos e opções fatiadas para sua casa ou negócio.",
   },
   {
     slug: "salames",
     name: "Salames",
-    image: embutidos,
+    image: categorySalames,
     description: "Salames e frios selecionados para servir e compartilhar.",
   },
   {
@@ -82,7 +86,7 @@ export const CATEGORY_META: {
   {
     slug: "linguicas",
     name: "Linguiças",
-    image: embutidos,
+    image: categoryLinguicas,
     description: "Linguiças para refeições, churrascos e revenda.",
   },
   {

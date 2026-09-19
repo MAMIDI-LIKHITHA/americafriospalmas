@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { QuantityStepper } from "./QuantityStepper";
 import { useCart, unitPriceFor } from "@/lib/cart";
 import { brl } from "@/lib/order";
+import { CATEGORY_META } from "@/lib/products";
 import type { Product } from "@/lib/products";
 
 export function ProductRow({ product }: { product: Product }) {
@@ -12,13 +13,16 @@ export function ProductRow({ product }: { product: Product }) {
   const [qty, setQty] = useState(1);
   const [imageFailed, setImageFailed] = useState(false);
   const { price, wholesaleApplied } = unitPriceFor(product, qty, mode);
-  const showImage = Boolean(product.image) && !imageFailed;
+
+  const categoryImage = CATEGORY_META.find((category) => category.name === product.category)?.image ?? null;
+  const imageSource = product.image ?? categoryImage;
+  const showImage = Boolean(imageSource) && !imageFailed;
 
   return (
     <div className="flex flex-col gap-4 border-t border-border py-4 first:border-t-0 sm:flex-row sm:items-center">
       {showImage ? (
         <img
-          src={product.image!}
+          src={imageSource!}
           alt={product.name}
           loading="lazy"
           className="aspect-square w-full rounded-lg object-cover sm:h-24 sm:w-24"

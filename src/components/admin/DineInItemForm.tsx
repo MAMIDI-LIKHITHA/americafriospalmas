@@ -114,7 +114,7 @@ export function DineInItemForm({
       >
         <div className="flex items-start justify-between gap-3">
           <h2 className="font-display text-xl font-bold text-foreground">
-            {item ? "Editar item do cardápio" : "Novo item do cardápio"}
+            {item ? "Editar item para consumo no local" : "Novo item para consumo no local"}
           </h2>
           <button
             type="button"

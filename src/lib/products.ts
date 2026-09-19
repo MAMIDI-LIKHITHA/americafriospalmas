@@ -1,4 +1,4 @@
-// Imagens de categoria (placeholder IA) — substituir pelas fotos reais do cliente.
+// Imagens de categoria editáveis no código; produtos e dados comerciais vêm do banco.
 import frios from "@/assets/frios.jpg";
 import embutidos from "@/assets/embutidos.jpg";
 import suinos from "@/assets/suinos.jpg";

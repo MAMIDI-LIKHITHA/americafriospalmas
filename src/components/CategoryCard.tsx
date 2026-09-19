@@ -15,7 +15,6 @@ export function CategoryCard({
 
   return (
     <article className="card-surface flex flex-col overflow-hidden" id={category.slug}>
-      {/* PLACEHOLDER IMAGE (IA) — substituir por foto real do cliente */}
       <div className="relative aspect-4/3 overflow-hidden bg-muted">
         <img
           src={category.image}

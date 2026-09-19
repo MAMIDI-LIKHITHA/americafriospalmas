@@ -13,11 +13,13 @@ export function WhatsAppButton({
   className = "",
   size = "md",
   block = false,
+  label = "WhatsApp",
 }: {
   message?: string;
   className?: string;
   size?: "sm" | "md" | "lg";
   block?: boolean;
+  label?: string;
 }) {
   const sizes = {
     sm: "text-sm px-4 py-2",
@@ -36,7 +38,7 @@ export function WhatsAppButton({
           className={`btn-base btn-whatsapp ${sizes[size]} ${block ? "flex-1 justify-center" : ""}`}
         >
           <WaIcon className={size === "lg" ? "h-5 w-5" : "h-4 w-4"} />
-          WhatsApp {n.display}
+          {label} {n.display}
         </a>
       ))}
     </div>

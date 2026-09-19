@@ -55,7 +55,7 @@ export const getDineInMenu = createServerFn({ method: "GET" }).handler(
           .order("sort_order", { ascending: true }),
       ]);
 
-    if (catError || itemError) throw new Error("Não foi possível carregar o cardápio.");
+    if (catError || itemError) throw new Error("Não foi possível carregar os produtos para consumo no local.");
 
     const rows = items ?? [];
     const paths = rows

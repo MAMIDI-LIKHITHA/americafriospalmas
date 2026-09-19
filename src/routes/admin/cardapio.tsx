@@ -33,13 +33,13 @@ export const Route = createFileRoute("/admin/cardapio")({
       { title: "Consumo no Local | Painel América Frios" },
       {
         name: "description",
-        content: "Gestão do cardápio de consumo no local da América Frios.",
+        content: "Gestão dos produtos para consumo no local da América Frios.",
       },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Consumo no Local | Painel América Frios" },
       {
         property: "og:description",
-        content: "Área restrita para gerenciar o cardápio do salão.",
+        content: "Área restrita para gerenciar os produtos disponíveis para consumo no local.",
       },
     ],
   }),
@@ -111,7 +111,7 @@ function AdminDineInPage() {
   const deleteItemMutation = useMutation({
     mutationFn: (id: string) => deleteDineInItem(id),
     onSuccess: () => {
-      toast.success("Item excluído do cardápio.");
+      toast.success("Item excluído da seleção para consumo no local.");
       refreshAll();
     },
     onError: () => toast.error("Não foi possível excluir o item."),
@@ -302,7 +302,7 @@ function AdminDineInPage() {
                         onClick={() => {
                           if (
                             confirm(
-                              `Excluir a categoria "${c.name}" e todos os seus itens do cardápio?`,
+                              `Excluir a categoria "${c.name}" e todos os seus itens?`,
                             )
                           ) {
                             deleteCategoryMutation.mutate(c.id);
@@ -323,7 +323,7 @@ function AdminDineInPage() {
 
       {/* Itens por categoria */}
       {itemsQuery.isLoading ? (
-        <p className="mt-6 text-sm text-muted-foreground">Carregando cardápio…</p>
+        <p className="mt-6 text-sm text-muted-foreground">Carregando produtos…</p>
       ) : (
         <div className="mt-6 space-y-6">
           {categories.map((category) => {
@@ -394,7 +394,7 @@ function AdminDineInPage() {
                           </button>
                           <button
                             onClick={() => {
-                              if (confirm(`Excluir "${item.name}" do cardápio?`)) {
+                              if (confirm(`Excluir "${item.name}" da seleção?`)) {
                                 deleteItemMutation.mutate(item.id);
                               }
                             }}

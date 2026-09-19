@@ -132,7 +132,7 @@ export async function setDineInCategorySortOrder(id: string, sortOrder: number) 
   if (error) throw error;
 }
 
-/** Envia a imagem do item para o bucket privado (prefixo próprio do cardápio). */
+/** Envia a imagem do item para o bucket privado de consumo no local. */
 export async function uploadDineInImage(file: File) {
   if (!ALLOWED_IMAGE_TYPES.includes(file.type as (typeof ALLOWED_IMAGE_TYPES)[number])) {
     throw new Error("Formato inválido. Use JPG, PNG ou WEBP.");

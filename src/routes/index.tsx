@@ -85,7 +85,7 @@ function Index() {
             <Link to="/produtos" className="btn-base btn-brand px-6 py-3.5 text-base">
               Ver Produtos
             </Link>
-            <WhatsAppButton size="lg" />
+            <WhatsAppButton size="lg" label="Falar no WhatsApp" />
           </div>
         </div>
       </section>
@@ -134,7 +134,7 @@ function Index() {
             <p className="mt-4 text-muted-foreground">Quer aproveitar no local? A América Frios também oferece uma experiência para quem deseja consumir produtos no próprio estabelecimento.</p>
             <p className="mt-3 text-muted-foreground">Além de nossos produtos, aproveite a experiência da América Frios no local.</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <WhatsAppButton message="Olá! Gostaria de saber mais sobre o consumo no local da América Frios." />
+              <WhatsAppButton label="Fale Conosco" message="Olá! Gostaria de saber mais sobre o consumo no local da América Frios." />
               <Link to="/menu" className="btn-base btn-outline-brand">Ver opções para consumo</Link>
             </div>
           </div>

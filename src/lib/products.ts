@@ -5,10 +5,10 @@ import suinos from "@/assets/suinos.jpg";
 import frangos from "@/assets/frangos.jpg";
 import espetinhos from "@/assets/espetinhos.jpg";
 import atacado from "@/assets/atacado.jpg";
-import categoryQueijos from "@/assets/category-queijos.svg";
-import categoryPresuntos from "@/assets/category-presuntos.svg";
-import categorySalames from "@/assets/category-salames.svg";
-import categoryLinguicas from "@/assets/category-linguicas.svg";
+import categoryQueijos from "@/assets/Queijos — Cheese.png";
+import categoryPresuntos from "@/assets/Presuntos — Ham.png";
+import categorySalames from "@/assets/Salames — Salami.png";
+import categoryLinguicas from "@/assets/Linguiças — Sausages.png";
 
 export type Product = {
   /** slug do produto no banco — usado como identificador no carrinho e no checkout */

@@ -46,19 +46,19 @@ export const CATEGORY_META: {
   {
     slug: "queijos",
     name: "Queijos",
-    image: null,
+    image: frios,
     description: "Uma seleção de queijos para diferentes momentos e receitas.",
   },
   {
     slug: "presuntos",
     name: "Presuntos",
-    image: null,
+    image: frios,
     description: "Presuntos e opções fatiadas para sua casa ou negócio.",
   },
   {
     slug: "salames",
     name: "Salames",
-    image: null,
+    image: embutidos,
     description: "Salames e frios selecionados para servir e compartilhar.",
   },
   {
@@ -82,7 +82,7 @@ export const CATEGORY_META: {
   {
     slug: "linguicas",
     name: "Linguiças",
-    image: null,
+    image: embutidos,
     description: "Linguiças para refeições, churrascos e revenda.",
   },
   {

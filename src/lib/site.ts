@@ -22,7 +22,6 @@ export const CONTACT = {
   email: "empoemporiofinanceiro2018@yahoo.com",
   instagram: "https://www.instagram.com/americafriospalmas/",
   instagramHandle: "@americafriospalmas",
-  facebook: "https://www.facebook.com/search/top?q=am%C3%A9rica%20frios",
   hours: "8h às 20h, de segunda a sábado; até às 13h no domingo",
 };
 

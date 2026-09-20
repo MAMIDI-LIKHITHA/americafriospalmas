@@ -57,7 +57,7 @@ export const getDineInMenu = createServerFn({ method: "GET" }).handler(
 
     // GitHub fallback keeps the dedicated /menu page usable when the optional
     // dine-in tables have not yet been created/populated in Supabase.
-    if (catError || itemError || !(cats ?? []).length) {
+    if (catError || itemError || !(cats ?? []).length || !(items ?? []).length) {
       return [{
         id: "github-dine-in",
         name: "Para Comer Aqui",

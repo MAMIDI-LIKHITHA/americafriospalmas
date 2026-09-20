@@ -35,6 +35,8 @@ export type Store = {
   city: string;
   postal: string;
   mapQuery: string;
+  phoneDisplay: string;
+  phoneIntl: string;
   // NOTA INTERNA: horários são placeholder (8h–19h) — confirmar por loja antes de publicar.
   hours: string;
   // NOTA INTERNA: verificar status de funcionamento desta unidade antes de publicar.
@@ -52,6 +54,8 @@ export const STORES: Store[] = [
     postal: "77015-000",
     mapQuery:
       "Av. LO 5, Q. 205 Sul, Alameda 1, 11, Plano Diretor Sul, Palmas - TO, 77015-000",
+    phoneDisplay: "(63) 98402-1014",
+    phoneIntl: "5563984021014",
     hours: "8h às 19h, todos os dias",
   },
   {
@@ -62,6 +66,8 @@ export const STORES: Store[] = [
     city: "Palmas - TO",
     postal: "77017-282",
     mapQuery: "Alameda 11, Quadra 903 Sul, Plano Diretor Sul, Palmas - TO, 77017-282",
+    phoneDisplay: "(63) 99220-7950",
+    phoneIntl: "5563992207950",
     hours: "8h às 19h, todos os dias",
   },
 ];

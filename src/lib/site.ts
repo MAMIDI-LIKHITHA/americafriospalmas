@@ -81,7 +81,7 @@ export const localBusinessSchema = () =>
     "@context": "https://schema.org",
     "@type": "GroceryStore",
     name: `América Frios — ${s.name}`,
-    image: "https://www.instagram.com/americafriospalmas/",
+    image: "https://raw.githubusercontent.com/MAMIDI-LIKHITHA/americafriospalmas/main/src/assets/Homepage.png",
     telephone: s.phoneIntl,
     email: CONTACT.email,
     priceRange: "$$",

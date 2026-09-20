@@ -54,6 +54,7 @@ export function OrderDetail({
   store,
   onClose,
   onStatus,
+  onDelete,
   busy,
 }: {
   order: AdminOrder;

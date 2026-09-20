@@ -7,7 +7,7 @@ import { dineInMenuQueryOptions } from "@/lib/dinein";
 import { brl } from "@/lib/order";
 
 const description =
-  "Conheça os produtos selecionados da América Frios disponíveis para consumo no local, com fotos, descrições e preços atualizados.";
+  "Consulte a seleção da América Frios para consumo no local, com produtos, descrições, preços e disponibilidade cadastrados pela equipe.";
 
 export const Route = createFileRoute("/menu")({
   head: () => ({
@@ -46,14 +46,18 @@ function MenuPage() {
   return (
     <div className="container-page py-10 md:py-14">
       <p className="text-sm font-bold tracking-widest text-primary uppercase">Consumo no local</p>
-      <h1 className="mt-2 max-w-3xl font-display text-3xl md:text-4xl">Produtos para consumo no local</h1>
+      <h1 className="mt-2 max-w-3xl font-display text-3xl md:text-4xl">Cardápio para consumir na loja</h1>
       <p className="mt-4 max-w-2xl text-muted-foreground">
-        Aproveite uma seleção de produtos no próprio estabelecimento. Esta seleção é
-        independente do catálogo online de entrega e retirada.
+        Consulte abaixo os produtos cadastrados para consumo no local. Os preços e a
+        disponibilidade exibidos correspondem às informações atuais do cardápio.
+      </p>
+      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+        Se precisar confirmar disponibilidade ou tiver alguma dúvida antes de ir à loja,
+        fale com nossa equipe pelo WhatsApp.
       </p>
 
       {visible.length > 1 && (
-        <nav className="mt-6 flex flex-wrap gap-2">
+        <nav className="mt-6 flex flex-wrap gap-2" aria-label="Categorias do cardápio">
           {visible.map((c) => (
             <a
               key={c.id}
@@ -68,7 +72,8 @@ function MenuPage() {
 
       {visible.length === 0 ? (
         <p className="mt-10 rounded-2xl border border-border bg-card p-6 text-sm text-muted-foreground">
-          Nossa seleção para consumo no local está sendo preparada. Em breve você encontra tudo por aqui.
+          O cardápio para consumo no local ainda não possui produtos publicados. Volte mais tarde
+          para consultar a seleção disponível.
         </p>
       ) : (
         <div className="mt-10 space-y-12">

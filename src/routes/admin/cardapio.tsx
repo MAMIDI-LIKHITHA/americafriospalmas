@@ -10,6 +10,7 @@ import { isCurrentUserAdmin } from "@/lib/admin";
 import { brl } from "@/lib/order";
 import {
   deleteDineInCategory,
+  ensureDineInStarterCatalog,
   deleteDineInItem,
   fetchDineInCategories,
   fetchDineInItems,
@@ -58,7 +59,7 @@ function AdminDineInPage() {
 
   const categoriesQuery = useQuery({
     queryKey: ["admin-dinein-categories"],
-    queryFn: fetchDineInCategories,
+    queryFn: async () => {\n      await ensureDineInStarterCatalog();\n      return fetchDineInCategories();\n    },
   });
   const itemsQuery = useQuery({ queryKey: ["admin-dinein-items"], queryFn: fetchDineInItems });
 

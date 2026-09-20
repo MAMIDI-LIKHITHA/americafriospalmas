@@ -15,10 +15,10 @@ export const Route = createFileRoute("/contato")({
       { property: "og:title", content: "Contato | América Frios Palmas" },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/contato" },
+      { property: "og:url", content: "https://americafriospalmas.lovable.app/contato" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/contato" }],
+    links: [{ rel: "canonical", href: "https://americafriospalmas.lovable.app/contato" }],
   }),
   component: ContatoPage,
 });

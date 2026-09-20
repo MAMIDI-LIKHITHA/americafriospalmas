@@ -1,4 +1,4 @@
-import { Phone, Mail, Instagram, Facebook, MapPin } from "lucide-react";
+import { Phone, Mail, Instagram, MapPin } from "lucide-react";
 
 import { createFileRoute } from "@tanstack/react-router";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -67,24 +67,14 @@ function ContatoPage() {
             <Instagram className="h-4 w-4 text-primary" /> {CONTACT.instagramHandle}
           </a>
 
-          <div className="flex flex-wrap gap-2 pt-1">
-            <a
-              href={CONTACT.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-base btn-outline-brand px-4 py-2 text-sm"
-            >
-              <Instagram className="h-4 w-4" /> Instagram
-            </a>
-            <a
-              href={CONTACT.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-base btn-outline-brand px-4 py-2 text-sm"
-            >
-              <Facebook className="h-4 w-4" /> Facebook
-            </a>
-          </div>
+          <a
+            href={CONTACT.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-base btn-outline-brand inline-flex px-4 py-2 text-sm"
+          >
+            <Instagram className="h-4 w-4" /> Instagram
+          </a>
 
           <WhatsAppButton size="lg" block />
 

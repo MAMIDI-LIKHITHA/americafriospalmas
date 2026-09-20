@@ -114,12 +114,12 @@ export function DineInItemForm({
       >
         <div className="flex items-start justify-between gap-3">
           <h2 className="font-display text-xl font-bold text-foreground">
-            {item ? "Editar item para consumo no local" : "Novo item para consumo no local"}
+            {item ? "Edit item for on-site consumption" : "Add item for on-site consumption"}
           </h2>
           <button
             type="button"
             onClick={onClose}
-            aria-label="Fechar"
+            aria-label="Close"
             className="rounded-lg border border-border p-2 text-foreground hover:bg-accent"
           >
             <X className="h-4 w-4" />
@@ -128,7 +128,7 @@ export function DineInItemForm({
 
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
           <label className="sm:col-span-2">
-            <span className="text-xs font-semibold uppercase text-muted-foreground">Nome</span>
+            <span className="text-xs font-semibold uppercase text-muted-foreground">Name</span>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -139,7 +139,7 @@ export function DineInItemForm({
           </label>
 
           <label>
-            <span className="text-xs font-semibold uppercase text-muted-foreground">Categoria</span>
+            <span className="text-xs font-semibold uppercase text-muted-foreground">Category</span>
             <select
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value)}
@@ -154,19 +154,22 @@ export function DineInItemForm({
           </label>
 
           <label>
-            <span className="text-xs font-semibold uppercase text-muted-foreground">Preço (R$)</span>
+            <span className="text-xs font-semibold uppercase text-muted-foreground">Price (R$)</span>
             <input
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               inputMode="decimal"
               placeholder="0,00"
+              min="0"
+              step="0.01"
+              required
               className={inputClass}
             />
           </label>
 
           <label className="sm:col-span-2">
             <span className="text-xs font-semibold uppercase text-muted-foreground">
-              Descrição (opcional)
+              Description (optional)
             </span>
             <textarea
               value={description}
@@ -178,10 +181,10 @@ export function DineInItemForm({
           </label>
 
           <div className="sm:col-span-2">
-            <span className="text-xs font-semibold uppercase text-muted-foreground">Imagem</span>
+            <span className="text-xs font-semibold uppercase text-muted-foreground">Image</span>
             <div className="mt-2 flex items-center gap-4">
               {preview ? (
-                <img src={preview} alt="Pré-visualização" className="h-20 w-20 rounded-xl object-cover" />
+                <img src={preview} alt="Preview" className="h-20 w-20 rounded-xl object-cover" />
               ) : (
                 <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-muted text-muted-foreground">
                   <ImageIcon className="h-6 w-6" />
@@ -194,7 +197,7 @@ export function DineInItemForm({
                   onChange={(e) => handleFile(e.target.files?.[0])}
                   className="text-sm text-foreground"
                 />
-                <p className="mt-1 text-xs text-muted-foreground">JPG, PNG ou WEBP — até 5 MB.</p>
+                <p className="mt-1 text-xs text-muted-foreground">JPG, PNG, or WEBP — up to 5 MB.</p>
                 {(file || imagePath) && (
                   <button
                     type="button"
@@ -204,7 +207,7 @@ export function DineInItemForm({
                     }}
                     className="mt-2 text-xs font-semibold text-destructive"
                   >
-                    Remover imagem
+                    Remove image
                   </button>
                 )}
               </div>
@@ -218,7 +221,7 @@ export function DineInItemForm({
               onChange={(e) => setAvailable(e.target.checked)}
               className="h-4 w-4"
             />
-            <span className="text-sm font-semibold text-foreground">Disponível</span>
+            <span className="text-sm font-semibold text-foreground">Available</span>
           </label>
 
           <label className="flex items-center gap-3 rounded-lg border border-border p-3">
@@ -228,7 +231,7 @@ export function DineInItemForm({
               onChange={(e) => setFeatured(e.target.checked)}
               className="h-4 w-4"
             />
-            <span className="text-sm font-semibold text-foreground">Destaque / mais pedido</span>
+            <span className="text-sm font-semibold text-foreground">Featured / Most Requested</span>
           </label>
         </div>
 
@@ -238,14 +241,14 @@ export function DineInItemForm({
             onClick={onClose}
             className="rounded-lg border border-border px-4 py-2 text-sm font-semibold text-foreground hover:bg-accent"
           >
-            Cancelar
+            Cancel
           </button>
           <button
             type="submit"
             disabled={saving}
             className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-60"
           >
-            {saving ? "Salvando…" : "Salvar item"}
+            {saving ? "Saving…" : "Save item"}
           </button>
         </div>
       </form>

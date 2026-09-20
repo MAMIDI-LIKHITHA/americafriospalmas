@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { X } from "lucide-react";
+import { Trash2, X } from "lucide-react";
 
 import { brl } from "@/lib/order";
 import {
@@ -60,6 +60,7 @@ export function OrderDetail({
   store: AdminStore | null;
   onClose: () => void;
   onStatus: (status: OrderStatus) => void;
+  onDelete: (orderId: string) => void;
   busy: boolean;
 }) {
   const itemsQuery = useQuery({
@@ -181,7 +182,21 @@ export function OrderDetail({
           <p className="mt-1 whitespace-pre-line text-foreground">{order.notes || "Nenhuma."}</p>
         </div>
 
-        <div className="mt-6 flex justify-end">
+        <div className="mt-6 flex flex-col gap-3 border-t border-border pt-5 sm:flex-row sm:items-center sm:justify-between">
+          <button
+            type="button"
+            disabled={busy}
+            onClick={() => {
+              const confirmed = window.confirm(
+                `Excluir permanentemente o pedido ${order.order_number} de ${order.customer_name}? Esta ação não pode ser desfeita.`,
+              );
+              if (confirmed) onDelete(order.id);
+            }}
+            className="inline-flex items-center justify-center gap-2 rounded-lg border border-destructive/40 px-4 py-2 text-sm font-semibold text-destructive hover:bg-destructive/10 disabled:opacity-50"
+          >
+            <Trash2 className="h-4 w-4" />
+            Excluir pedido
+          </button>
           <a
             href={`https://wa.me/55${order.customer_phone.replace(/\D/g, "").replace(/^55/, "")}`}
             target="_blank"

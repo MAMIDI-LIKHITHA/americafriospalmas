@@ -291,7 +291,6 @@ function CarrinhoPage() {
                   </label>
                 ))}
               </div>
-              {/* NOTA INTERNA: confirmar com a cliente as formas de pagamento aceitas. */}
             </fieldset>
 
             <Field label="Observações (opcional)">
@@ -310,7 +309,7 @@ function CarrinhoPage() {
               disabled={sending}
               className="btn-base btn-brand mt-5 w-full disabled:opacity-70"
             >
-              {sending ? "Enviando pedido…" : `Enviar pedido · ${brl(total)}`}
+              {sending ? "Enviando pedido…" : `Enviar pedido · subtotal estimado ${brl(total)}`}
             </button>
           </form>
         </div>

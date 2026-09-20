@@ -19,7 +19,7 @@ export const Route = createFileRoute("/menu")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/menu" }],
+    links: [{ rel: "canonical", href: "https://americafriospalmas.lovable.app/menu" }],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(dineInMenuQueryOptions),
   component: MenuPage,

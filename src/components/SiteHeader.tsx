@@ -35,7 +35,7 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav aria-label="Navegação principal" className="hidden items-center gap-7 lg:flex">
           {NAV.map((item) => (
             <Link
               key={item.to}
@@ -69,7 +69,7 @@ export function SiteHeader() {
 
       {open && (
         <div className="border-t border-border bg-background lg:hidden">
-          <nav className="container-page flex flex-col py-3">
+          <nav aria-label="Navegação principal" className="container-page flex flex-col py-3">
             {NAV.map((item) => (
               <Link
                 key={item.to}

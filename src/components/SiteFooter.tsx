@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Facebook, Phone, Mail } from "lucide-react";
+import { Instagram, Phone, Mail } from "lucide-react";
 
 import logo from "@/assets/logo.png";
 import { CONTACT, STORES } from "@/lib/site";
@@ -33,15 +33,6 @@ export function SiteFooter() {
               className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-cream/10 hover:bg-cream/20"
             >
               <Instagram className="h-4 w-4" />
-            </a>
-            <a
-              href={CONTACT.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-cream/10 hover:bg-cream/20"
-            >
-              <Facebook className="h-4 w-4" />
             </a>
           </div>
         </div>
@@ -99,11 +90,6 @@ export function SiteFooter() {
             <li>
               <a href={CONTACT.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-cream">
                 Instagram
-              </a>
-            </li>
-            <li>
-              <a href={CONTACT.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-cream">
-                Facebook
               </a>
             </li>
           </ul>

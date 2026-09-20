@@ -65,7 +65,7 @@ export const getDineInMenu = createServerFn({ method: "GET" }).handler(
 
     const publicImageUrl = (value: string | null) => {
       if (!value) return null;
-      if (/^https?:\\/\\//i.test(value)) return value;
+      if (/^https?:\/\//i.test(value)) return value;
       return supabase.storage.from("product-images").getPublicUrl(value).data.publicUrl;
     };
 
@@ -82,7 +82,7 @@ export const getDineInMenu = createServerFn({ method: "GET" }).handler(
           description: i.description,
           price: Number(i.price ?? 0),
           image: i.image_url
-            ? /^https?:\\/\\//i.test(i.image_url)
+            ? /^https?:\/\//i.test(i.image_url)
               ? i.image_url
               : publicImageUrl(i.image_url)
             : null,

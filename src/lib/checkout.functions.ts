@@ -131,12 +131,19 @@ export const createOrder = createServerFn({ method: "POST" })
 
     let storeId: string | null = null;
     if (customer.fulfillment === "retirada" && customer.storeName) {
-      const { data: store } = await supabase
+      const { data: store, error: storeError } = await supabase
         .from("stores")
         .select("id")
         .eq("name", customer.storeName)
         .maybeSingle();
-      storeId = store?.id ?? null;
+
+      if (storeError) {
+        return { ok: false, message: "Não foi possível validar a loja para retirada." };
+      }
+      if (!store) {
+        return { ok: false, message: "A loja selecionada não está disponível para retirada." };
+      }
+      storeId = store.id;
     }
 
     // Pix NÃO marca o pedido como pago: todo pedido nasce com status "new".

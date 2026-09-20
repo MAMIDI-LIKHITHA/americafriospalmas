@@ -175,7 +175,7 @@ function Index() {
           <p className="mx-auto mt-3 max-w-xl text-sm text-primary-foreground/85">
              Fale com nossa equipe, confira a disponibilidade e escolha seus produtos favoritos.
           </p>
-          <WhatsAppButton size="lg" className="mt-7" />
+          <WhatsAppButton size="lg" className="mt-7 justify-center" />
         </div>
       </section>
     </div>

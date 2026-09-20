@@ -176,14 +176,13 @@ function CarrinhoPage() {
             </ul>
             <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
               <span className="text-sm text-muted-foreground">
-                Total ({mode === "atacado" ? "atacado" : "varejo"})
+                Subtotal estimado ({mode === "atacado" ? "atacado" : "varejo"})
               </span>
               <span className="font-display text-2xl font-bold tabular-nums">{brl(total)}</span>
             </div>
-            {/* NOTA INTERNA: preços placeholder — trocar pela tabela real da cliente. */}
             <p className="mt-2 text-xs text-muted-foreground">
-              Valores de referência. A equipe confirma o total final (peso e disponibilidade) no
-              WhatsApp.
+              O subtotal usa os preços cadastrados no catálogo. Para produtos vendidos por peso,
+              a equipe confirma a quantidade e o valor final pelo WhatsApp.
             </p>
           </section>
 

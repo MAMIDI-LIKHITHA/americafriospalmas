@@ -20,7 +20,7 @@ import {
 import { STORES, WHATSAPP_NUMBERS } from "@/lib/site";
 
 const description =
-  "Finalize seu pedido de frios, embutidos, suínos, frangos e espetinhos na América Frios Palmas: entrega ou retirada em loja, Pix, dinheiro ou cartão.";
+  "Finalize seu pedido de frios, embutidos, suínos, frangos e espetinhos na América Frios Palmas: informe seus dados, escolha entrega ou retirada e envie o resumo pelo WhatsApp para confirmação.";
 
 export const Route = createFileRoute("/carrinho")({
   head: () => ({
@@ -121,8 +121,9 @@ function CarrinhoPage() {
     <div className="container-page py-12">
       <h1 className="font-display text-3xl md:text-4xl">Seu pedido</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
-        Monte o pedido, escolha entrega ou retirada e finalize aqui mesmo no site. Enviamos
-        também um resumo pelo WhatsApp para a nossa equipe confirmar tudo com você.
+        Confira os itens, informe seus dados e escolha entrega ou retirada. Ao enviar o pedido,
+        nós o registramos e você poderá encaminhar o resumo pelo WhatsApp para nossa equipe
+        confirmar os valores finais e a disponibilidade.
       </p>
 
       {lines.length === 0 ? (

@@ -90,6 +90,12 @@ export async function updateOrderStatus(orderId: string, status: OrderStatus) {
 }
 
 export async function deleteOrder(orderId: string) {
+  const { error: itemsError } = await supabase
+    .from("order_items")
+    .delete()
+    .eq("order_id", orderId);
+  if (itemsError) throw itemsError;
+
   const { error } = await supabase.from("orders").delete().eq("id", orderId);
   if (error) throw error;
 }

@@ -23,7 +23,7 @@ export const CONTACT = {
   instagram: "https://www.instagram.com/americafriospalmas/",
   instagramHandle: "@americafriospalmas",
   facebook: "https://www.facebook.com/search/top?q=am%C3%A9rica%20frios",
-  hours: "8h às 19h, todos os dias",
+  hours: "8h às 20h, de segunda a sábado; até às 13h no domingo",
 };
 
 export type Store = {
@@ -37,9 +37,7 @@ export type Store = {
   mapQuery: string;
   phoneDisplay: string;
   phoneIntl: string;
-  // NOTA INTERNA: horários são placeholder (8h–19h) — confirmar por loja antes de publicar.
   hours: string;
-  // NOTA INTERNA: verificar status de funcionamento desta unidade antes de publicar.
   verifyStatus?: boolean;
 };
 
@@ -56,7 +54,7 @@ export const STORES: Store[] = [
       "Av. LO 5, Q. 205 Sul, Alameda 1, 11, Plano Diretor Sul, Palmas - TO, 77015-000",
     phoneDisplay: "(63) 98402-1014",
     phoneIntl: "5563984021014",
-    hours: "8h às 19h, todos os dias",
+    hours: "8h às 20h, de segunda a sábado; até às 13h no domingo",
   },
   {
     slug: "903-sul",
@@ -68,10 +66,9 @@ export const STORES: Store[] = [
     mapQuery: "Alameda 11, Quadra 903 Sul, Plano Diretor Sul, Palmas - TO, 77017-282",
     phoneDisplay: "(63) 99220-7950",
     phoneIntl: "5563992207950",
-    hours: "8h às 19h, todos os dias",
+    hours: "8h às 20h, de segunda a sábado; até às 13h no domingo",
   },
 ];
-
 
 export const mapEmbed = (query: string) =>
   `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
@@ -96,20 +93,27 @@ export const localBusinessSchema = () =>
       postalCode: s.postal,
       addressCountry: "BR",
     },
-    openingHoursSpecification: {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-      ],
-      opens: "08:00",
-      closes: "19:00",
-    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ],
+        opens: "08:00",
+        closes: "20:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Sunday"],
+        opens: "08:00",
+        closes: "13:00",
+      },
+    ],
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.5",

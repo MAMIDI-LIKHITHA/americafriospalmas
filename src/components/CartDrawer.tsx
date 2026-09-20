@@ -39,9 +39,14 @@ export function CartDrawer() {
         onClick={() => setDrawerOpen(false)}
         className="absolute inset-0 bg-charcoal/50"
       />
-      <aside className="absolute top-0 right-0 flex h-full w-full max-w-md flex-col bg-background shadow-2xl">
+      <aside
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="cart-drawer-title"
+        className="absolute top-0 right-0 flex h-full w-full max-w-md flex-col bg-background shadow-2xl"
+      >
         <header className="flex items-center justify-between gap-3 border-b border-border px-5 py-4">
-          <h2 className="font-display text-lg font-bold">Seu carrinho</h2>
+          <h2 id="cart-drawer-title" className="font-display text-lg font-bold">Seu carrinho</h2>
           <button
             type="button"
             aria-label="Fechar carrinho"
@@ -103,7 +108,7 @@ export function CartDrawer() {
 
         <footer className="space-y-3 border-t border-border px-5 py-4">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Total</span>
+            <span className="text-sm text-muted-foreground">Subtotal estimado</span>
             <span className="font-display text-xl font-bold tabular-nums">{brl(total)}</span>
           </div>
           <Link
@@ -128,7 +133,7 @@ export function CartDrawer() {
             )}
           </div>
           <p className="text-[11px] text-muted-foreground">
-            Preços de referência — a loja confirma valores e disponibilidade no WhatsApp.
+            Este é um subtotal de referência. A loja confirma valores, disponibilidade e o valor final no WhatsApp.
           </p>
         </footer>
       </aside>

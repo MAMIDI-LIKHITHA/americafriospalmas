@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Facebook, Phone, Mail } from "lucide-react";
+import { Instagram, Phone, Mail } from "lucide-react";
 
 import logo from "@/assets/logo.png";
 import { CONTACT, STORES } from "@/lib/site";

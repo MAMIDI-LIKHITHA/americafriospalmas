@@ -1,4 +1,4 @@
-import { Clock, MapPin, Navigation } from "lucide-react";
+import { Clock, MapPin, Navigation, Phone } from "lucide-react";
 
 import { mapDirections, mapEmbed, type Store } from "@/lib/site";
 import { WhatsAppButton } from "./WhatsAppButton";
@@ -30,6 +30,13 @@ export function StoreCard({ store }: { store: Store }) {
             {store.street} — {store.district}, {store.city}, {store.postal}
           </span>
         </p>
+        <a
+          href={`tel:+${store.phoneIntl}`}
+          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary"
+        >
+          <Phone className="h-4 w-4 shrink-0 text-primary" />
+          {store.phoneDisplay}
+        </a>
         <p className="flex items-center gap-2 text-sm text-muted-foreground">
           <Clock className="h-4 w-4 shrink-0 text-primary" />
           {store.hours}
@@ -43,10 +50,14 @@ export function StoreCard({ store }: { store: Store }) {
           >
             <Navigation className="h-4 w-4" /> Como Chegar
           </a>
-          <WhatsAppButton
-            size="sm"
-            message={`Olá! Vim pelo site e gostaria de falar com a ${store.name}.`}
-          />
+          <a
+            href={`https://wa.me/${store.phoneIntl}?text=${encodeURIComponent(`Olá! Vim pelo site e gostaria de falar com a ${store.name}.`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-base btn-whatsapp px-4 py-2 text-sm"
+          >
+            WhatsApp {store.phoneDisplay}
+          </a>
         </div>
       </div>
     </article>

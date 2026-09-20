@@ -89,6 +89,11 @@ export async function updateOrderStatus(orderId: string, status: OrderStatus) {
   if (error) throw error;
 }
 
+export async function deleteOrder(orderId: string) {
+  const { error } = await supabase.from("orders").delete().eq("id", orderId);
+  if (error) throw error;
+}
+
 export type AdminStore = {
   id: string;
   name: string;

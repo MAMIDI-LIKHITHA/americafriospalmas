@@ -22,10 +22,10 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Início | América Frios Palmas" },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: "https://americafriospalmas.lovable.app/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: "https://americafriospalmas.lovable.app/" }],
     scripts: localBusinessSchema().map((schema) => ({
       type: "application/ld+json",
       children: JSON.stringify(schema),

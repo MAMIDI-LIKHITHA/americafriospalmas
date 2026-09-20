@@ -57,11 +57,20 @@ function AdminDineInPage() {
   const [newCategoryName, setNewCategoryName] = useState("");
   const [editingCategory, setEditingCategory] = useState<DineInCategory | null>(null);
 
+  // Initialize the starter catalog exactly once. Running the initializer
+  // from two parallel queries can race on the unique category slug.
   const categoriesQuery = useQuery({
     queryKey: ["admin-dinein-categories"],
-    queryFn: async () => {\n      await ensureDineInStarterCatalog();\n      return fetchDineInCategories();\n    },
+    queryFn: async () => {
+      await ensureDineInStarterCatalog();
+      return fetchDineInCategories();
+    },
   });
-  const itemsQuery = useQuery({\n    queryKey: ["admin-dinein-items"],\n    queryFn: async () => {\n      // Run the same initialization here as the category query. Both queries\n      // start together, so this prevents a race where items are fetched\n      // before the starter catalog has been created.\n      await ensureDineInStarterCatalog();\n      return fetchDineInItems();\n    },\n  });
+  const itemsQuery = useQuery({
+    queryKey: ["admin-dinein-items"],
+    queryFn: fetchDineInItems,
+    enabled: categoriesQuery.isSuccess,
+  });
 
   const categories = useMemo(() => categoriesQuery.data ?? [], [categoriesQuery.data]);
   const items = useMemo(() => itemsQuery.data ?? [], [itemsQuery.data]);

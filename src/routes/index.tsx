@@ -12,7 +12,7 @@ import localImg from "@/assets/loja-interior.jpg";
 import varietyImg from "@/assets/deli-variety.png";
 
 const description =
-  "América Frios em Palmas: variedade, qualidade e sabor em frios, queijos, carnes, embutidos e outros produtos alimentícios.";
+  "América Frios em Palmas: frios, queijos, carnes, embutidos e outros produtos para sua casa ou negócio.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -50,10 +50,10 @@ function HomeError() {
 }
 
 const EXPERIENCES = [
-  { icon: PackageCheck, title: "Produtos de qualidade", text: "Seleção pensada para sua casa ou negócio." },
-  { icon: Sparkles, title: "Grande variedade", text: "Frios, queijos, carnes, embutidos e muito mais." },
-  { icon: Utensils, title: "Consumo no local", text: "Produtos selecionados para aproveitar no estabelecimento." },
-  { icon: MessageCircle, title: "Atendimento pelo WhatsApp", text: "Tire dúvidas e fale diretamente com nossa equipe." },
+  { icon: PackageCheck, title: "Para sua casa ou negócio", text: "Opções para compras do dia a dia e abastecimento." },
+  { icon: Sparkles, title: "Frios e especialidades", text: "Queijos, presuntos, salames, carnes, embutidos e mais." },
+  { icon: Utensils, title: "Consumo no local", text: "Confira as opções disponíveis para aproveitar na loja." },
+  { icon: MessageCircle, title: "Atendimento pelo WhatsApp", text: "Consulte disponibilidade, pedidos e informações." },
 ];
 
 function Index() {
@@ -61,11 +61,10 @@ function Index() {
 
   return (
     <div>
-      {/* Hero */}
       <section className="relative overflow-hidden border-b border-border">
         <img
           src={heroImg}
-          alt="América Frios — variedade, qualidade e sabor"
+          alt="América Frios — produtos e atendimento em Palmas"
           width={1536}
           height={864}
           className="absolute inset-0 h-full w-full object-cover"
@@ -73,13 +72,13 @@ function Index() {
         <div className="absolute inset-0 bg-gradient-to-r from-charcoal/75 via-charcoal/35 to-transparent" />
         <div className="container-page relative py-16 md:py-24">
           <p className="font-display text-sm font-semibold tracking-widest text-cream/70 uppercase">
-            Variedade e qualidade · Palmas - TO
+            Palmas - TO · Loja física e pedidos
           </p>
           <h1 className="mt-4 max-w-4xl font-display text-3xl leading-tight text-cream sm:text-4xl md:text-5xl">
-            Qualidade e sabor para todos os momentos
+            Frios, carnes e especialidades para sua mesa
           </h1>
           <p className="mt-5 max-w-2xl text-base text-cream/80 md:text-lg">
-            Conheça nossos produtos, encontre seus favoritos e aproveite a experiência América Frios.
+            Explore o catálogo, monte seu pedido e fale com nossa equipe pelo WhatsApp.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link to="/produtos" className="btn-base btn-brand px-6 py-3.5 text-base">
@@ -103,19 +102,18 @@ function Index() {
         </div>
       </section>
 
-      {/* Categorias */}
       <section className="container-page py-16">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-sm font-bold tracking-widest text-primary uppercase">Categorias</p>
-            <h2 className="mt-2 font-display text-2xl md:text-3xl">O que você encontra aqui</h2>
+            <h2 className="mt-2 font-display text-2xl md:text-3xl">Escolha por categoria</h2>
           </div>
           <Link to="/produtos" className="text-sm font-semibold text-primary hover:underline">
             Ver catálogo completo →
           </Link>
         </div>
         <p className="mt-3 max-w-2xl text-muted-foreground">
-           Explore nossa variedade e monte seu pedido online com entrega ou retirada.
+          Veja os principais grupos de produtos e acesse o catálogo para montar seu pedido.
         </p>
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -129,10 +127,11 @@ function Index() {
         <div className="container-page grid gap-10 lg:grid-cols-2 lg:items-center">
           <img src={localImg} alt="Espaço da América Frios para consumo no local" loading="lazy" className="aspect-4/3 w-full rounded-lg object-cover" />
           <div>
-            <p className="text-sm font-bold tracking-widest text-primary uppercase">Experiência América Frios</p>
+            <p className="text-sm font-bold tracking-widest text-primary uppercase">Experiência na loja</p>
             <h2 className="mt-2 font-display text-2xl md:text-3xl">Consumo no local</h2>
-            <p className="mt-4 text-muted-foreground">Quer aproveitar no local? A América Frios também oferece uma experiência para quem deseja consumir produtos no próprio estabelecimento.</p>
-            <p className="mt-3 text-muted-foreground">Além de nossos produtos, aproveite a experiência da América Frios no local.</p>
+            <p className="mt-4 text-muted-foreground">
+              Veja as opções disponíveis para consumo no local e consulte nossa equipe sobre horários e disponibilidade.
+            </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <WhatsAppButton label="Fale Conosco" message="Olá! Gostaria de saber mais sobre o consumo no local da América Frios." />
               <Link to="/menu" className="btn-base btn-outline-brand">Ver opções para consumo</Link>
@@ -144,20 +143,21 @@ function Index() {
       <section className="container-page py-16">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
           <div>
-            <p className="text-sm font-bold tracking-widest text-primary uppercase">Novidades e produtos</p>
-            <h2 className="mt-2 font-display text-2xl md:text-3xl">Conheça a América Frios no Instagram</h2>
-            <p className="mt-4 max-w-xl text-muted-foreground">Acompanhe nossos produtos, novidades e conteúdos no perfil oficial.</p>
+            <p className="text-sm font-bold tracking-widest text-primary uppercase">Novidades</p>
+            <h2 className="mt-2 font-display text-2xl md:text-3xl">Acompanhe a América Frios</h2>
+            <p className="mt-4 max-w-xl text-muted-foreground">
+              Veja produtos, novidades e conteúdos no perfil oficial do Instagram.
+            </p>
             <a href="https://www.instagram.com/americafriospalmas/" target="_blank" rel="noopener noreferrer" className="btn-base btn-brand mt-6"><Instagram className="h-4 w-4" /> Ver Instagram</a>
           </div>
           <img src={varietyImg} alt="Variedade de produtos alimentícios da América Frios" loading="lazy" className="aspect-16/9 w-full rounded-lg object-cover" />
         </div>
       </section>
 
-      {/* Lojas */}
       <section className="border-t border-border bg-secondary/60 py-16">
         <div className="container-page">
           <p className="text-sm font-bold tracking-widest text-primary uppercase">Nossas lojas</p>
-          <h2 className="mt-2 font-display text-2xl md:text-3xl">Encontre a loja mais próxima</h2>
+          <h2 className="mt-2 font-display text-2xl md:text-3xl">Encontre uma loja</h2>
           <div className="mt-8 grid gap-6 lg:grid-cols-2">
             {STORES.map((s) => (
               <StoreCard key={s.slug} store={s} />
@@ -166,14 +166,13 @@ function Index() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="container-page py-16">
         <div className="rounded-2xl bg-primary px-6 py-14 text-center text-primary-foreground">
           <h2 className="font-display text-2xl md:text-3xl">
-             Encontre qualidade e variedade em um só lugar
+            Precisa de ajuda com seu pedido?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm text-primary-foreground/85">
-             Fale com nossa equipe, confira a disponibilidade e escolha seus produtos favoritos.
+            Fale com nossa equipe para confirmar disponibilidade, entrega ou retirada.
           </p>
           <WhatsAppButton size="lg" className="mt-7 justify-center" />
         </div>

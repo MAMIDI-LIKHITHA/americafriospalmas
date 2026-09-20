@@ -48,15 +48,30 @@ export function ProductRow({ product }: { product: Product }) {
         {product.description && <p className="mt-1 text-sm text-muted-foreground">{product.description}</p>}
         <p className="text-sm text-muted-foreground">
           <span className="font-bold text-foreground">{brl(price)}</span> / {product.unit}
-          {mode === "atacado" && !wholesaleApplied && (
-            <span className="ml-1 text-xs">
-              · atacado {brl(product.wholesale)} a partir de {product.wholesaleMin} {product.unit}
-              {product.unit === "unidade" ? "s" : ""}
-            </span>
-          )}
           {wholesaleApplied && (
-            <span className="ml-1 text-xs font-semibold text-primary">preço de atacado</span>
+            <span className="ml-1 text-xs font-semibold text-primary">· preço de atacado aplicado</span>
           )}
+        </p>
+        {mode === "varejo" && (
+          <p className="text-xs text-muted-foreground">
+            Varejo: {brl(product.retail)} / {product.unit}
+          </p>
+        )}
+        {mode === "atacado" && !wholesaleApplied && (
+          <p className="text-xs text-muted-foreground">
+            Atacado: {brl(product.wholesale)} / {product.unit} · mínimo de {product.wholesaleMin}{" "}
+            {product.unit}{product.unit === "unidade" ? "s" : ""}
+          </p>
+        )}
+        {mode === "atacado" && wholesaleApplied && (
+          <p className="text-xs text-muted-foreground">
+            Atacado aplicado a partir de {product.wholesaleMin} {product.unit}
+            {product.unit === "unidade" ? "s" : ""}.
+          </p>
+        )}
+        <p className="mt-1 text-[11px] text-muted-foreground">
+          O valor exibido é por {product.unit}. Para produtos vendidos por peso, o valor final pode
+          variar conforme a quantidade pesada e será confirmado pelo WhatsApp.
         </p>
       </div>
       <div className="flex shrink-0 items-center gap-2">

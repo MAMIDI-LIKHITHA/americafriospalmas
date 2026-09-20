@@ -14,6 +14,7 @@ import {
   downloadCsv,
   fetchAdminOrders,
   fetchAdminStores,
+  deleteOrder,
   ordersToCsv,
   paymentLabel,
   updateOrderStatus,
@@ -87,6 +88,16 @@ function AdminOrdersPage() {
       return true;
     });
   }, [orders, search, status, type, fulfillment, storeId, from, to]);
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => deleteOrder(id),
+    onSuccess: (_d, id) => {
+      toast.success("Pedido excluído.");
+      setOpenOrder((o) => (o?.id === id ? null : o));
+      void queryClient.invalidateQueries({ queryKey: ["admin-orders"] });
+    },
+    onError: () => toast.error("Não foi possível excluir o pedido."),
+  });
 
   const statusMutation = useMutation({
     mutationFn: ({ id, status: s }: { id: string; status: OrderStatus }) =>
@@ -340,7 +351,8 @@ function AdminOrdersPage() {
           store={store(openOrder.store_id)}
           onClose={() => setOpenOrder(null)}
           onStatus={(s) => statusMutation.mutate({ id: openOrder.id, status: s })}
-          busy={statusMutation.isPending}
+          onDelete={(id) => deleteMutation.mutate(id)}
+          busy={statusMutation.isPending || deleteMutation.isPending}
         />
       )}
     </AdminShell>

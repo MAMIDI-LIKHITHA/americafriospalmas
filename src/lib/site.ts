@@ -82,7 +82,7 @@ export const localBusinessSchema = () =>
     "@type": "GroceryStore",
     name: `América Frios — ${s.name}`,
     image: "https://www.instagram.com/americafriospalmas/",
-    telephone: CONTACT.phoneIntl,
+    telephone: s.phoneIntl,
     email: CONTACT.email,
     priceRange: "$$",
     address: {

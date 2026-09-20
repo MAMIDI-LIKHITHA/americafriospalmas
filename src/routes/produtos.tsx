@@ -47,11 +47,12 @@ function ProdutosPage() {
     <div className="container-page py-14">
       <p className="text-sm font-bold tracking-widest text-primary uppercase">Catálogo</p>
       <h1 className="mt-2 max-w-3xl font-display text-3xl md:text-4xl">
-         Produtos para todos os momentos
+        Produtos para todos os momentos
       </h1>
       <p className="mt-4 max-w-2xl text-muted-foreground">
-        Escolha os itens, ajuste as quantidades e finalize o pedido aqui no site — com entrega
-        em Palmas ou retirada em uma das nossas lojas.
+        Monte seu pedido, escolha as quantidades e envie os dados pelo site. Depois, encaminhe o
+        resumo pelo WhatsApp para nossa equipe confirmar valores finais, disponibilidade e detalhes
+        da entrega ou retirada em loja.
       </p>
       <div className="mt-6 flex flex-wrap items-center gap-3 rounded-xl border border-primary/20 bg-primary/5 p-4">
         <ModeToggle />
@@ -66,13 +67,12 @@ function ProdutosPage() {
         ))}
       </div>
 
-
       <section className="mt-14 rounded-2xl bg-charcoal px-6 py-12 text-center text-cream">
         <h2 className="font-display text-2xl md:text-3xl">
           Precisa de um orçamento para atacado?
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-sm text-cream/75">
-           Atendemos famílias, mercados, lanchonetes e revendedores em Palmas e região.
+          Atendemos famílias, mercados, lanchonetes e revendedores em Palmas e região.
         </p>
         <WhatsAppButton
           size="lg"

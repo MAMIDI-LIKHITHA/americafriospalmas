@@ -10,6 +10,7 @@ import { isCurrentUserAdmin } from "@/lib/admin";
 import { brl } from "@/lib/order";
 import {
   STATUS_LABELS,
+  deleteOrder,
   fetchAdminOrders,
   fetchAdminStores,
   paymentLabel,
@@ -80,6 +81,16 @@ function AdminHomePage() {
       delivery: orders.filter((o) => o.fulfillment_type === "Delivery").length,
     };
   }, [orders]);
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => deleteOrder(id),
+    onSuccess: (_d, id) => {
+      toast.success("Pedido excluído.");
+      setOpenOrder((o) => (o?.id === id ? null : o));
+      void queryClient.invalidateQueries({ queryKey: ["admin-orders"] });
+    },
+    onError: () => toast.error("Não foi possível excluir o pedido."),
+  });
 
   const statusMutation = useMutation({
     mutationFn: ({ id, status }: { id: string; status: OrderStatus }) =>
@@ -197,7 +208,8 @@ function AdminHomePage() {
           store={store(openOrder.store_id)}
           onClose={() => setOpenOrder(null)}
           onStatus={(status) => statusMutation.mutate({ id: openOrder.id, status })}
-          busy={statusMutation.isPending}
+          onDelete={(id) => deleteMutation.mutate(id)}
+          busy={statusMutation.isPending || deleteMutation.isPending}
         />
       )}
     </AdminShell>

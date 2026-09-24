@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Briefcase, Send, Info, MapPin, CheckCircle2 } from "lucide-react";
 
+import { fetchPublicJobOpenings, type JobOpening } from "@/lib/jobs-db";
 import { WHATSAPP_NUMBERS, waLinkFor } from "@/lib/site";
 
 const description =

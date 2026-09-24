@@ -104,6 +104,12 @@ function Field({
 }
 
 function TrabalheConoscoPage() {
+  const openingsQuery = useQuery({
+    queryKey: ["public-job-openings"],
+    queryFn: fetchPublicJobOpenings,
+  });
+  const openings = openingsQuery.data ?? [];
+
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");

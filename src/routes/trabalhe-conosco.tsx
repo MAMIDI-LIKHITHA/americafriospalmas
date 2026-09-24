@@ -20,42 +20,12 @@ const POSITIONS = [
 
 type Position = (typeof POSITIONS)[number];
 
-type Opening = {
-  id: string;
-  area: string;
-  store: string;
-  city: string;
-  requirements: string[];
-  nearbyNote?: string;
-  // índice em WHATSAPP_NUMBERS usado para o botão "Candidatar-se".
-  whatsappIndex: number;
-};
-
-const OPENINGS: Opening[] = [
-  {
-    id: "producao-903-sul",
-    area: "Área de Produção",
-    store: "Loja 903 Sul",
-    city: "Palmas/TO",
-    requirements: [
-      "Com ou sem experiência",
-      "Boa comunicação",
-      "Ser organizada e proativa",
-      "Disponibilidade de horário",
-      "Preferencial residir em bairros próximos",
-      "Ser maior de 18 anos",
-    ],
-    nearbyNote: "Residir em bairros próximos!",
-    whatsappIndex: 1,
-  },
-];
-
-function openingMessage(o: Opening) {
+function openingMessage(o: JobOpening) {
   const lines = [
     "Olá, América Frios! Gostaria de me candidatar à vaga abaixo.",
     "",
-    `Cargo: ${o.area}`,
-    `Loja: ${o.store} — ${o.city}`,
+    `Cargo: ${o.title}`,
+    `Loja: ${[o.store, o.city].filter(Boolean).join(" — ")}`,
     "",
     "Estou enviando meu currículo em PDF/anexo nesta conversa.",
   ];

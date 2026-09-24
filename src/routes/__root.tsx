@@ -20,15 +20,15 @@ function UnavailablePage() {
           América Frios
         </p>
         <h1 className="mt-3 font-display text-3xl leading-tight text-foreground sm:text-4xl md:text-5xl">
-          Website Temporarily Unavailable
+          Site Temporariamente Indisponível
         </h1>
         <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-muted-foreground md:text-lg">
-          This website is temporarily unavailable at the moment.
-          Please check back again later.
+          Este site está temporariamente indisponível no momento.
+          Por favor, tente novamente mais tarde.
         </p>
         <div className="mx-auto mt-8 h-px w-24 bg-border" />
         <p className="mt-6 text-sm text-muted-foreground">
-          Thank you for your understanding.
+          Agradecemos a sua compreensão.
         </p>
       </section>
     </div>
@@ -49,10 +49,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "América Frios | Website Temporarily Unavailable" },
+      { title: "América Frios | Site Temporariamente Indisponível" },
       {
         name: "description",
-        content: "This website is temporarily unavailable.",
+        content: "Este site está temporariamente indisponível.",
       },
       { name: "author", content: "América Frios" },
       { property: "og:site_name", content: "América Frios" },
@@ -77,7 +77,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
         <HeadContent />
       </head>

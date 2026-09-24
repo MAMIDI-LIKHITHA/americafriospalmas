@@ -183,9 +183,20 @@ function TrabalheConoscoPage() {
             </div>
           </div>
 
+          {openingsQuery.isLoading ? (
+            <p className="text-sm text-muted-foreground">Carregando vagas...</p>
+          ) : openings.length === 0 ? (
+            <p className="rounded-2xl border border-border bg-card p-6 text-sm text-muted-foreground">
+              No momento não há vagas abertas, mas você pode enviar sua candidatura pelo
+              formulário abaixo — entraremos em contato quando surgir uma oportunidade.
+            </p>
+          ) : (
           <div className="space-y-5">
-            {OPENINGS.map((o) => {
-              const number = WHATSAPP_NUMBERS[o.whatsappIndex] ?? WHATSAPP_NUMBERS[0];
+            {openings.map((o) => {
+              const requirements = o.requirements
+                .split("\n")
+                .map((r) => r.trim())
+                .filter(Boolean);
               return (
                 <article
                   key={o.id}
@@ -199,44 +210,52 @@ function TrabalheConoscoPage() {
                       </span>
                       Vaga aberta
                     </span>
-                    <h3 className="font-display text-lg text-foreground">{o.area}</h3>
+                    <h3 className="font-display text-lg text-foreground">{o.title}</h3>
                   </div>
 
-                  <div className="mt-4 flex items-start gap-2 text-sm text-foreground/80">
-                    <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                    <span>
-                      <span className="font-semibold text-foreground">{o.store}</span> — {o.city}
-                    </span>
-                  </div>
+                  {(o.store || o.city) && (
+                    <div className="mt-4 flex items-start gap-2 text-sm text-foreground/80">
+                      <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      <span>
+                        {o.store && (
+                          <span className="font-semibold text-foreground">{o.store}</span>
+                        )}
+                        {o.store && o.city && " — "}
+                        {o.city}
+                      </span>
+                    </div>
+                  )}
 
-                  <div className="mt-5">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                      Requisitos
-                    </p>
-                    <ul className="mt-2 grid gap-2 sm:grid-cols-2">
-                      {o.requirements.map((r) => (
-                        <li key={r} className="flex items-start gap-2 text-sm text-foreground/85">
-                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary/70" />
-                          {r}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  {requirements.length > 0 && (
+                    <div className="mt-5">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                        Requisitos
+                      </p>
+                      <ul className="mt-2 grid gap-2 sm:grid-cols-2">
+                        {requirements.map((r) => (
+                          <li key={r} className="flex items-start gap-2 text-sm text-foreground/85">
+                            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary/70" />
+                            {r}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
 
-                  {o.nearbyNote && (
+                  {o.note && (
                     <p className="mt-4 rounded-lg border border-primary/30 bg-primary/5 p-3 text-sm font-semibold text-foreground">
-                      📍 {o.nearbyNote}
+                      📍 {o.note}
                     </p>
                   )}
 
                   <div className="mt-6 flex flex-wrap items-center gap-3">
                     <a
-                      href={waLinkFor(number.intl, openingMessage(o))}
+                      href={waLinkFor(o.whatsapp_intl, openingMessage(o))}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-base btn-whatsapp text-base"
                     >
-                      <Send className="h-4 w-4" /> Candidatar-se — {number.display}
+                      <Send className="h-4 w-4" /> Candidatar-se — {o.whatsapp_display}
                     </a>
                     <span className="text-xs text-muted-foreground">
                       ou preencha o formulário abaixo.
@@ -246,6 +265,7 @@ function TrabalheConoscoPage() {
               );
             })}
           </div>
+          )}
         </div>
       </section>
 

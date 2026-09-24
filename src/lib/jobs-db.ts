@@ -13,7 +13,7 @@ export type JobOpening = {
   sort_order: number;
 };
 
-export type JobOpeningInput = Omit<JobOpening, "id"> & { id?: string };
+export type JobOpeningInput = Omit<JobOpening, "id"> & { id?: string | undefined };
 
 export async function fetchPublicJobOpenings(): Promise<JobOpening[]> {
   const { data, error } = await supabase

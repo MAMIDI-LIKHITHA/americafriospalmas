@@ -97,6 +97,51 @@ export type Database = {
           },
         ]
       }
+      job_openings: {
+        Row: {
+          active: boolean
+          city: string
+          created_at: string
+          id: string
+          note: string | null
+          requirements: string
+          sort_order: number
+          store: string
+          title: string
+          updated_at: string
+          whatsapp_display: string
+          whatsapp_intl: string
+        }
+        Insert: {
+          active?: boolean
+          city?: string
+          created_at?: string
+          id?: string
+          note?: string | null
+          requirements?: string
+          sort_order?: number
+          store?: string
+          title: string
+          updated_at?: string
+          whatsapp_display?: string
+          whatsapp_intl?: string
+        }
+        Update: {
+          active?: boolean
+          city?: string
+          created_at?: string
+          id?: string
+          note?: string | null
+          requirements?: string
+          sort_order?: number
+          store?: string
+          title?: string
+          updated_at?: string
+          whatsapp_display?: string
+          whatsapp_intl?: string
+        }
+        Relationships: []
+      }
       order_items: {
         Row: {
           created_at: string

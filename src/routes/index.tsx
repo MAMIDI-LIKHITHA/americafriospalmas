@@ -31,6 +31,7 @@ export const Route = createFileRoute("/")({
       children: JSON.stringify(schema),
     })),
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(catalogQueryOptions),
   component: Index,
   errorComponent: HomeError,
   notFoundComponent: HomeError,
@@ -56,26 +57,125 @@ const EXPERIENCES = [
 ];
 
 function Index() {
+  const { data: categories } = useSuspenseQuery(catalogQueryOptions);
+
   return (
-    <div className="flex min-h-[70vh] items-center justify-center bg-background px-6 py-20">
-      <section className="w-full max-w-2xl text-center">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
-          <Store className="h-8 w-8" />
+    <div>
+      <section className="relative overflow-hidden border-b border-border">
+        <img
+          src={heroImg}
+          alt="América Frios — produtos e atendimento em Palmas"
+          width={1536}
+          height={864}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/75 via-charcoal/35 to-transparent" />
+        <div className="container-page relative py-16 md:py-24">
+          <p className="font-display text-sm font-semibold tracking-widest text-cream/70 uppercase">
+            Palmas - TO · Loja física e pedidos
+          </p>
+          <h1 className="mt-4 max-w-4xl font-display text-3xl leading-tight text-cream sm:text-4xl md:text-5xl">
+            Frios, carnes e especialidades para sua mesa
+          </h1>
+          <p className="mt-5 max-w-2xl text-base text-cream/80 md:text-lg">
+            Explore o catálogo, monte seu pedido e fale com nossa equipe pelo WhatsApp.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link to="/produtos" className="btn-base btn-brand px-6 py-3.5 text-base">
+              Ver Produtos
+            </Link>
+            <WhatsAppButton size="lg" label="Falar no WhatsApp" />
+          </div>
         </div>
-        <p className="mt-8 text-sm font-bold tracking-[0.2em] text-primary uppercase">
-          América Frios
+      </section>
+
+      <section className="border-b border-border bg-card py-10">
+        <div className="container-page grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {EXPERIENCES.map(({ icon: Icon, title, text }) => (
+            <div key={title} className="flex gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <Icon className="h-5 w-5" />
+              </span>
+              <div><h2 className="text-sm font-bold">{title}</h2><p className="mt-1 text-sm text-muted-foreground">{text}</p></div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="container-page py-16">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="text-sm font-bold tracking-widest text-primary uppercase">Categorias</p>
+            <h2 className="mt-2 font-display text-2xl md:text-3xl">Escolha por categoria</h2>
+          </div>
+          <Link to="/produtos" className="text-sm font-semibold text-primary hover:underline">
+            Ver catálogo completo →
+          </Link>
+        </div>
+        <p className="mt-3 max-w-2xl text-muted-foreground">
+          Veja os principais grupos de produtos e acesse o catálogo para montar seu pedido.
         </p>
-        <h1 className="mt-3 font-display text-3xl leading-tight text-foreground sm:text-4xl md:text-5xl">
-          Site temporariamente indisponível
-        </h1>
-        <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-muted-foreground md:text-lg">
-          Este site está temporariamente indisponível no momento.
-          Por favor, tente novamente mais tarde.
-        </p>
-        <div className="mx-auto mt-8 h-px w-24 bg-border" />
-        <p className="mt-6 text-sm text-muted-foreground">
-          Agradecemos a sua compreensão.
-        </p>
+
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {categories.map((c) => (
+            <CategoryCard key={c.name} category={c} />
+          ))}
+        </div>
+      </section>
+
+      <section className="border-y border-border bg-secondary/60 py-16">
+        <div className="container-page grid gap-10 lg:grid-cols-2 lg:items-center">
+          <img src={localImg} alt="Espaço da América Frios para consumo no local" loading="lazy" className="aspect-4/3 w-full rounded-lg object-cover" />
+          <div>
+            <p className="text-sm font-bold tracking-widest text-primary uppercase">Experiência na loja</p>
+            <h2 className="mt-2 font-display text-2xl md:text-3xl">Consumo no local</h2>
+            <p className="mt-4 text-muted-foreground">
+              Veja as opções disponíveis para consumo no local e consulte nossa equipe sobre horários e disponibilidade.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <WhatsAppButton label="Fale Conosco" message="Olá! Gostaria de saber mais sobre o consumo no local da América Frios." />
+              <Link to="/menu" className="btn-base btn-outline-brand">Ver opções para consumo</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="container-page py-16">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+          <div>
+            <p className="text-sm font-bold tracking-widest text-primary uppercase">Novidades</p>
+            <h2 className="mt-2 font-display text-2xl md:text-3xl">Acompanhe a América Frios</h2>
+            <p className="mt-4 max-w-xl text-muted-foreground">
+              Veja produtos, novidades e conteúdos no perfil oficial do Instagram.
+            </p>
+            <a href="https://www.instagram.com/americafriospalmas/" target="_blank" rel="noopener noreferrer" className="btn-base btn-brand mt-6"><Instagram className="h-4 w-4" /> Ver Instagram</a>
+          </div>
+          <img src={varietyImg} alt="Variedade de produtos alimentícios da América Frios" loading="lazy" className="aspect-16/9 w-full rounded-lg object-cover" />
+        </div>
+      </section>
+
+      <section className="border-t border-border bg-secondary/60 py-16">
+        <div className="container-page">
+          <p className="text-sm font-bold tracking-widest text-primary uppercase">Nossas lojas</p>
+          <h2 className="mt-2 font-display text-2xl md:text-3xl">Encontre uma loja</h2>
+          <div className="mt-8 grid gap-6 lg:grid-cols-2">
+            {STORES.map((s) => (
+              <StoreCard key={s.slug} store={s} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="container-page py-16">
+        <div className="rounded-2xl bg-primary px-6 py-14 text-center text-primary-foreground">
+          <h2 className="font-display text-2xl md:text-3xl">
+            Precisa de ajuda com seu pedido?
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm text-primary-foreground/85">
+            Fale com nossa equipe para confirmar disponibilidade, entrega ou retirada.
+          </p>
+          <WhatsAppButton size="lg" className="mt-7 justify-center" />
+        </div>
       </section>
     </div>
   );

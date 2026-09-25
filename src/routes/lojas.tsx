@@ -15,10 +15,10 @@ export const Route = createFileRoute("/lojas")({
       { property: "og:title", content: "Nossas Lojas | América Frios Palmas" },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/lojas" },
+      { property: "og:url", content: "https://americafriospalmas.lovable.app/lojas" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/lojas" }],
+    links: [{ rel: "canonical", href: "https://americafriospalmas.lovable.app/lojas" }],
     scripts: localBusinessSchema().map((schema) => ({
       type: "application/ld+json",
       children: JSON.stringify(schema),

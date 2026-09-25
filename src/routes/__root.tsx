@@ -1,6 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
+  Outlet,
+  Link,
   createRootRouteWithContext,
+  useRouter,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -8,40 +11,71 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "@/lib/lovable-error-reporting";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { CartDrawer } from "@/components/CartDrawer";
+import { CartProvider } from "@/lib/cart";
+import { Toaster } from "@/components/ui/sonner";
 
-function UnavailablePage() {
+
+function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-6 py-20">
-      <section className="w-full max-w-2xl text-center">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
-          <span className="text-2xl font-bold">A</span>
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="max-w-md text-center">
+        <h1 className="text-7xl font-bold text-foreground">404</h1>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          The page you're looking for doesn't exist or has been moved.
+        </p>
+        <div className="mt-6">
+          <Link
+            to="/"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Go home
+          </Link>
         </div>
-        <p className="mt-8 text-sm font-bold tracking-[0.2em] text-primary uppercase">
-          América Frios
-        </p>
-        <h1 className="mt-3 font-display text-3xl leading-tight text-foreground sm:text-4xl md:text-5xl">
-          Site Temporariamente Indisponível
-        </h1>
-        <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-muted-foreground md:text-lg">
-          Este site está temporariamente indisponível no momento.
-          Por favor, tente novamente mais tarde.
-        </p>
-        <div className="mx-auto mt-8 h-px w-24 bg-border" />
-        <p className="mt-6 text-sm text-muted-foreground">
-          Agradecemos a sua compreensão.
-        </p>
-      </section>
+      </div>
     </div>
   );
 }
 
-function ErrorComponent({ error }: { error: Error }) {
+function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
+  const router = useRouter();
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
-  return <UnavailablePage />;
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="max-w-md text-center">
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">
+          This page didn't load
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Something went wrong on our end. You can try refreshing or head back home.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-2">
+          <button
+            onClick={() => {
+              router.invalidate();
+              reset();
+            }}
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Try again
+          </button>
+          <a
+            href="/"
+            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+          >
+            Go home
+          </a>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
@@ -49,13 +83,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "América Frios | Site Temporariamente Indisponível" },
+      { title: "América Frios Palmas | Frios, Embutidos e Carnes" },
       {
         name: "description",
-        content: "Este site está temporariamente indisponível.",
+        content:
+          "Variedade, qualidade e sabor em frios, queijos, carnes, embutidos e outros produtos alimentícios em Palmas - TO.",
       },
       { name: "author", content: "América Frios" },
       { property: "og:site_name", content: "América Frios" },
+      { property: "og:locale", content: "pt_BR" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -72,6 +108,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   }),
   shellComponent: RootShell,
   component: RootComponent,
+  notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
 
@@ -90,5 +127,24 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
-  return <UnavailablePage />;
+  const { queryClient } = Route.useRouteContext();
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <CartProvider>
+        <div className="flex min-h-screen flex-col">
+          <SiteHeader />
+          <main className="flex-1">
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+          </main>
+          <SiteFooter />
+        </div>
+        <CartDrawer />
+        <Toaster />
+      </CartProvider>
+    </QueryClientProvider>
+  );
 }
+
+

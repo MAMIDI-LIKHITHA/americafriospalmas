@@ -12,3 +12,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://americafriospalmas.lovable.app/sitemap.xml

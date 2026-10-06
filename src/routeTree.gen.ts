@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CarrinhoRouteImport } from './routes/carrinho'
+import { Route as ContaRouteImport } from './routes/conta'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as LojasRouteImport } from './routes/lojas'
 import { Route as MenuRouteImport } from './routes/menu'
@@ -34,6 +35,11 @@ const IndexRoute = IndexRouteImport.update({
 const CarrinhoRoute = CarrinhoRouteImport.update({
   id: '/carrinho',
   path: '/carrinho',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContaRoute = ContaRouteImport.update({
+  id: '/conta',
+  path: '/conta',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContatoRoute = ContatoRouteImport.update({
@@ -110,6 +116,7 @@ const AdminVagasRoute = AdminVagasRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/carrinho': typeof CarrinhoRoute
+  '/conta': typeof ContaRoute
   '/contato': typeof ContatoRoute
   '/lojas': typeof LojasRoute
   '/menu': typeof MenuRoute
@@ -222,6 +229,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CarrinhoRoute: typeof CarrinhoRoute
+  ContaRoute: typeof ContaRoute
   ContatoRoute: typeof ContatoRoute
   LojasRoute: typeof LojasRoute
   MenuRoute: typeof MenuRoute
@@ -358,6 +366,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CarrinhoRoute: CarrinhoRoute,
+  ContaRoute: ContaRoute,
   ContatoRoute: ContatoRoute,
   LojasRoute: LojasRoute,
   MenuRoute: MenuRoute,

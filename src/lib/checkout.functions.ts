@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 
 import type { Database } from "@/integrations/supabase/types";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const itemSchema = z.object({
   slug: z.string().trim().min(1).max(60),
@@ -14,12 +15,7 @@ const payloadSchema = z.object({
   items: z.array(itemSchema).min(1, "Carrinho vazio").max(60),
   customer: z.object({
     name: z.string().trim().min(3).max(80),
-    phone: z
-      .string()
-      .trim()
-      .min(10)
-      .max(20)
-      .regex(/^[0-9()+\-\s]+$/),
+    phone: z.string().trim().min(10).max(20).regex(/^[0-9()+\-\s]+$/),
     fulfillment: z.enum(["entrega", "retirada"]),
     address: z.string().trim().max(200).optional(),
     storeName: z.string().trim().max(80).optional(),
@@ -31,12 +27,7 @@ const payloadSchema = z.object({
 export type CreateOrderPayload = z.infer<typeof payloadSchema>;
 
 export type CreateOrderResult =
-  | {
-      ok: true;
-      orderNumber: string;
-      total: number;
-      items: { name: string; qty: number; unit: string; unitPrice: number; subtotal: number }[];
-    }
+  | { ok: true; orderNumber: string; total: number; items: { name: string; qty: number; unit: string; unitPrice: number; subtotal: number }[] }
   | { ok: false; message: string };
 
 function serverClient() {
@@ -46,9 +37,7 @@ function serverClient() {
     global: {
       fetch: (input, init) => {
         const h = new Headers(init?.headers);
-        if (key.startsWith("sb_") && h.get("Authorization") === `Bearer ${key}`) {
-          h.delete("Authorization");
-        }
+        if (key.startsWith("sb_") && h.get("Authorization") === `Bearer ${key}`) h.delete("Authorization");
         h.set("apikey", key);
         return fetch(input, { ...init, headers: h });
       },
@@ -58,19 +47,16 @@ function serverClient() {
 
 function orderNumber() {
   const now = new Date();
-  const stamp =
-    `${now.getFullYear()}` +
-    String(now.getMonth() + 1).padStart(2, "0") +
-    String(now.getDate()).padStart(2, "0");
-  const rand = String(Math.floor(Math.random() * 10000)).padStart(4, "0");
-  return `AF-${stamp}-${rand}`;
+  const stamp = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, "0")}${String(now.getDate()).padStart(2, "0")}`;
+  return `AF-${stamp}-${String(Math.floor(Math.random() * 10000)).padStart(4, "0")}`;
 }
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
 
 export const createOrder = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => payloadSchema.parse(input))
-  .handler(async ({ data }): Promise<CreateOrderResult> => {
+  .handler(async ({ data, context }): Promise<CreateOrderResult> => {
     const supabase = serverClient();
     const { customer, items, mode } = data;
 
@@ -81,7 +67,6 @@ export const createOrder = createServerFn({ method: "POST" })
       return { ok: false, message: "Escolha a loja para retirada." };
     }
 
-    // Preços SEMPRE vindos do banco — nunca do navegador.
     const slugs = [...new Set(items.map((i) => i.slug))];
     const { data: products, error: productsError } = await supabase
       .from("products")
@@ -93,36 +78,16 @@ export const createOrder = createServerFn({ method: "POST" })
     const byQty = new Map<string, number>();
     for (const i of items) byQty.set(i.slug, (byQty.get(i.slug) ?? 0) + i.qty);
 
-    const lines: {
-      productId: string;
-      name: string;
-      unit: string;
-      qty: number;
-      unitPrice: number;
-      subtotal: number;
-    }[] = [];
-
+    const lines: { productId: string; name: string; unit: string; qty: number; unitPrice: number; subtotal: number }[] = [];
     for (const [slug, qty] of byQty) {
       const product = (products ?? []).find((p) => p.slug === slug);
-      if (!product || !product.available) {
-        return { ok: false, message: `Produto indisponível: ${slug}. Revise o carrinho.` };
-      }
+      if (!product || !product.available) return { ok: false, message: `Produto indisponível: ${slug}. Revise o carrinho.` };
       const retail = Number(product.price ?? 0);
       const wholesale = Number(product.wholesale_price ?? retail);
       const wholesaleMin = Number(product.wholesale_min ?? 1);
-      const unitPrice =
-        mode === "atacado" && qty >= wholesaleMin && wholesale > 0 ? wholesale : retail;
-      if (!(unitPrice > 0)) {
-        return { ok: false, message: `Preço indisponível para ${product.name}.` };
-      }
-      lines.push({
-        productId: product.id,
-        name: product.name,
-        unit: product.unit,
-        qty,
-        unitPrice: round2(unitPrice),
-        subtotal: round2(unitPrice * qty),
-      });
+      const unitPrice = mode === "atacado" && qty >= wholesaleMin && wholesale > 0 ? wholesale : retail;
+      if (!(unitPrice > 0)) return { ok: false, message: `Preço indisponível para ${product.name}.` };
+      lines.push({ productId: product.id, name: product.name, unit: product.unit, qty, unitPrice: round2(unitPrice), subtotal: round2(unitPrice * qty) });
     }
 
     const subtotal = round2(lines.reduce((n, l) => n + l.subtotal, 0));
@@ -132,53 +97,41 @@ export const createOrder = createServerFn({ method: "POST" })
     let storeId: string | null = null;
     if (customer.fulfillment === "retirada" && customer.storeName) {
       const { data: store, error: storeError } = await supabase
-        .from("stores")
-        .select("id")
-        .eq("name", customer.storeName)
-        .maybeSingle();
-
-      if (storeError) {
-        return { ok: false, message: "Não foi possível validar a loja para retirada." };
-      }
-      if (!store) {
-        return { ok: false, message: "A loja selecionada não está disponível para retirada." };
-      }
+        .from("stores").select("id").eq("name", customer.storeName).maybeSingle();
+      if (storeError) return { ok: false, message: "Não foi possível validar a loja para retirada." };
+      if (!store) return { ok: false, message: "A loja selecionada não está disponível para retirada." };
       storeId = store.id;
     }
 
-    // Pix NÃO marca o pedido como pago: todo pedido nasce com status "new".
-    // Pedido + itens são gravados numa única transação (função place_order).
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-
     const itemsPayload = lines.map((l) => ({
-      product_id: l.productId,
-      product_name: l.name,
-      quantity: l.qty,
-      unit_price: l.unitPrice,
-      subtotal: l.subtotal,
+      product_id: l.productId, product_name: l.name, quantity: l.qty,
+      unit_price: l.unitPrice, subtotal: l.subtotal,
     }));
+
+    const userId = context.userId;
+    const customerEmail = typeof context.claims.email === "string" ? context.claims.email : null;
 
     let created: { order_id: string; order_number: string } | null = null;
     let lastError: string | null = null;
+
     for (let attempt = 0; attempt < 5 && !created; attempt++) {
       const { data: rows, error } = await supabaseAdmin.rpc("place_order", {
         p_order: {
           order_number: orderNumber(),
+          customer_id: userId,
           customer_name: customer.name,
           customer_phone: customer.phone,
+          customer_email: customerEmail,
           order_type: mode === "atacado" ? "Atacado" : "Varejo",
           fulfillment_type: customer.fulfillment === "retirada" ? "Pickup" : "Delivery",
           store_id: storeId,
           delivery_address: customer.fulfillment === "entrega" ? (customer.address ?? "") : "",
           payment_method: customer.payment,
-          subtotal,
-          delivery_fee: deliveryFee,
-          total,
-          notes: customer.note ?? "",
+          subtotal, delivery_fee: deliveryFee, total, notes: customer.note ?? "",
         },
         p_items: itemsPayload,
       });
-
       const row = Array.isArray(rows) ? rows[0] : null;
       if (!error && row) created = row;
       else lastError = error?.message ?? "sem retorno";
@@ -193,12 +146,6 @@ export const createOrder = createServerFn({ method: "POST" })
       ok: true,
       orderNumber: created.order_number,
       total,
-      items: lines.map((l) => ({
-        name: l.name,
-        qty: l.qty,
-        unit: l.unit,
-        unitPrice: l.unitPrice,
-        subtotal: l.subtotal,
-      })),
+      items: lines.map((l) => ({ name: l.name, qty: l.qty, unit: l.unit, unitPrice: l.unitPrice, subtotal: l.subtotal })),
     };
   });

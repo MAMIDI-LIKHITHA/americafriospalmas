@@ -185,15 +185,12 @@ function ContaPage() {
     return <div className="container-page py-16 text-center text-muted-foreground">Carregando sua conta…</div>;
   }
 
+  const itemCount = new Map<string, number>();
+  for (const item of items) itemCount.set(item.order_id, (itemCount.get(item.order_id) ?? 0) + item.quantity);
+
   if (!session) {
     return <AuthCard mode={authMode} setMode={setAuthMode} loading={authLoading} message={message} onSubmit={authenticate} />;
   }
-
-  const itemCount = useMemo(() => {
-    const map = new Map<string, number>();
-    for (const item of items) map.set(item.order_id, (map.get(item.order_id) ?? 0) + item.quantity);
-    return map;
-  }, [items]);
 
   return (
     <div className="container-page py-10 md:py-14">

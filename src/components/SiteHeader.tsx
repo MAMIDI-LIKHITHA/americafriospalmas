@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, UserRound, X } from "lucide-react";
 
 import logo from "@/assets/logo.png";
 import { WhatsAppButton } from "./WhatsAppButton";
@@ -54,7 +54,7 @@ export function SiteHeader() {
           <div className="hidden sm:block">
             <WhatsAppButton size="sm" />
           </div>
-          <CartButton />
+          <Link\n            to="/conta"\n            aria-label="Minha conta"\n            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-primary hover:text-primary"\n          >\n            <UserRound className="h-5 w-5" />\n          </Link>\n          <CartButton />
 
           <button
             type="button"

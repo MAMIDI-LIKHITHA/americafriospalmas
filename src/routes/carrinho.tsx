@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CheckCircle2, Trash2 } from "lucide-react";
 
 import { ModeToggle } from "@/components/ModeToggle";
@@ -18,6 +18,7 @@ import {
   type Order,
 } from "@/lib/order";
 import { STORES, WHATSAPP_NUMBERS } from "@/lib/site";
+import { supabase } from "@/integrations/supabase/client";
 
 const description =
   "Finalize seu pedido de frios, embutidos, suínos, frangos e espetinhos na América Frios Palmas: informe seus dados, escolha entrega ou retirada e envie o resumo pelo WhatsApp para confirmação.";
@@ -54,6 +55,30 @@ function CarrinhoPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [order, setOrder] = useState<Order | null>(null);
   const [sending, setSending] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(async ({ data }) => {
+      setAuthenticated(Boolean(data.session));
+      if (data.session) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("name, phone, address")
+          .eq("id", data.session.user.id)
+          .maybeSingle();
+        if (profile) {
+          setForm((current) => ({
+            ...current,
+            name: profile.name || current.name,
+            phone: profile.phone || current.phone,
+            address: profile.address || current.address,
+          }));
+        }
+      }
+    });
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => setAuthenticated(Boolean(session)));
+    return () => listener.subscription.unsubscribe();
+  }, []);
   const submitOrder = useServerFn(createOrder);
 
   const set = <K extends keyof CheckoutData>(key: K, value: CheckoutData[K]) =>

@@ -133,6 +133,7 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
+  '/conta': typeof ContaRoute
   '/': typeof IndexRoute
   '/carrinho': typeof CarrinhoRoute
   '/contato': typeof ContatoRoute
@@ -151,6 +152,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
+  '/conta': typeof ContaRoute
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/carrinho': typeof CarrinhoRoute
@@ -172,6 +174,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/conta'
     | '/'
     | '/carrinho'
     | '/contato'
@@ -260,6 +263,13 @@ declare module '@tanstack/react-router' {
       path: '/carrinho'
       fullPath: '/carrinho'
       preLoaderRoute: typeof CarrinhoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conta': {
+      id: '/conta'
+      path: '/conta'
+      fullPath: '/conta'
+      preLoaderRoute: typeof ContaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contato': {

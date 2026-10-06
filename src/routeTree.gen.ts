@@ -193,6 +193,7 @@ export interface FileRouteTypes {
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/conta'
     | '/'
     | '/carrinho'
     | '/contato'
@@ -210,6 +211,7 @@ export interface FileRouteTypes {
     | '/admin/vagas'
     | '/admin'
   id:
+    | '/conta'
     | '__root__'
     | '/'
     | '/carrinho'
